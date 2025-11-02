@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HaouzDataHub — Data Analyst Portfolio</title>
+  <meta name="description" content="HaouzDataHub portfolio — data analyst, visualization and case studies." />
+  <link rel="icon" href="/images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; --card:#101826; --muted:#94a3b8; --accent:#38bdf8; --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,#07101a 0%,#0b1220 100%); color:#e6eef6; -webkit-font-smoothing:antialiased}
+    .container{max-width:1100px;margin:0 auto;padding:40px 20px}
+
+    header.site-header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800;color:#041027}
+    .brand h1{font-size:20px;margin:0}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:14px;align-items:center}
+    .nav-link{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    .nav-link:hover{background:var(--glass);color:var(--accent)}
+
+    .hero{margin:60px 0 40px;text-align:center}
+    .hero h2{font-size:40px;margin:0;color:#9be8ff}
+    .hero p{color:var(--muted);margin-top:8px;font-size:16px}
+    .cta{margin-top:18px}
+    .btn{display:inline-block;background:linear-gradient(90deg,var(--accent),#7c3aed);color:#041027;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 8px 30px rgba(56,189,248,0.08)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6);transition:transform .28s,box-shadow .28s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(6,25,45,0.6)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .card h3{color:var(--accent);margin:12px 0 6px}
+    .card p{color:var(--muted);margin:0 0 12px}
+    .card .actions{display:flex;gap:10px}
+    .link-btn{padding:8px 12px;border-radius:8px;text-decoration:none;color:#061427;background:#0f1724;font-weight:700;border:1px solid rgba(255,255,255,0.03)}
+    .link-btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(56,189,248,0.12)}
+
+    .skills{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .chip{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600}
+
+    footer{padding:40px 0;text-align:center;color:var(--muted);font-size:14px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:120}
+    .modal.open{display:flex}
+    .modal-content{width:min(1000px,96%);max-height:88vh;overflow:auto;background:#071426;border-radius:12px;padding:20px}
+    .close{float:right;background:transparent;border:0;color:var(--muted);font-size:20px}
+
+    /* small */
+    @media(max-width:640px){.hero h2{font-size:28px}.brand h1{font-size:16px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo">H</div>
+        <div>
+          <h1>Hamza Haouzmani</h1>
+          <p>Data Analyst • Visualization • Business Insights</p>
+        </div>
+      </div>
+
+      <nav>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-link" id="themeToggle" href="#">Toggle</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Data-driven stories that power better decisions</h2>
+      <p>Machine learning forecasts • Time-series analysis • Interactive dashboards</p>
+      <div class="cta"><a class="btn" href="#projects">Explore Projects</a></div>
+    </section>
+
+    <section id="projects">
+      <h3 style="color:var(--accent);">Projects</h3>
+      <div class="grid" id="projectsGrid">
+        <!-- Projects will be injected here -->
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:34px">
+      <h3 style="color:var(--accent);">About</h3>
+      <p style="color:var(--muted);max-width:800px">I build predictive models and interactive dashboards to translate data into business impact. Experienced with Python, R, SQL, PyTorch, and Tableau.</p>
+      <div class="skills">
+        <div class="chip">Python</div>
+        <div class="chip">PyTorch</div>
+        <div class="chip">LSTM / Time series</div>
+        <div class="chip">SQL</div>
+        <div class="chip">Tableau</div>
+        <div class="chip">Data Cleaning</div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:28px">
+      <h3 style="color:var(--accent);">Contact</h3>
+      <p style="color:var(--muted)">Email: <a href="mailto:your.email@example.com">your.email@example.com</a> • GitHub: <a href="https://github.com/HaouzDataHub" target="_blank">HaouzDataHub</a></p>
+    </section>
+
+    <footer>
+      <div style="margin-top:24px">
+        <small>© 2025 HaouzDataHub • Built with GitHub Pages</small>
+      </div>
+    </footer>
+  </div>
+
+  <!-- modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <button class="close" id="closeModal">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // Projects data (edit or add more projects here)
+    const projects = [
+      {
+        id: 'cyclistic',
+        title: 'Cyclistic Bike Share Case Study',
+        description: 'Comprehensive analysis and recommendations to boost annual memberships.',
+        image: 'images/Cyclistic bik presentation.png',
+        link: 'Cyclistic_bik_presentation_analysis_case_study.html',
+        tags: ['R', 'Tableau', 'Data Cleaning']
+      }
+      // add more objects for other projects
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    function renderProjects(){
+      grid.innerHTML = '';
+      projects.forEach(p=>{
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${p.image}" alt="${p.title}" />
+          <h3>${p.title}</h3>
+          <p>${p.description}</p>
+          <div class="actions">
+            <a class="link-btn" href="${p.link}" target="_blank">Open Project</a>
+            <button class="link-btn secondary" data-id="${p.id}">Preview</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // modal preview
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+    document.addEventListener('click', e=>{
+      const btn = e.target.closest('button[data-id]');
+      if(btn){
+        const id = btn.dataset.id;
+        const project = projects.find(x=>x.id===id);
+        if(project){
+          modalBody.innerHTML = `
+            <h2 style="color:var(--accent);">${project.title}</h2>
+            <p style="color:var(--muted);">${project.description}</p>
+            <img src="${project.image}" style="max-height:360px;object-fit:cover;border-radius:8px;margin-top:12px;" />
+            <div style="margin-top:12px">
+              <a class="link-btn" href="${project.link}" target="_blank">Open Full Project</a>
+            </div>
+          `;
+          modal.classList.add('open');
+        }
+      }
+    });
+    document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('open'));
+
+    // theme toggle (simple - switches CSS variables)
+    const themeToggle = document.getElementById('themeToggle');
+    let dark = true;
+    themeToggle.addEventListener('click', e=>{e.preventDefault();dark=!dark;toggleTheme();});
+    function toggleTheme(){
+      if(dark){
+        document.documentElement.style.setProperty('--bg','#0b1220');
+        document.documentElement.style.setProperty('--card','#101826');
+        document.documentElement.style.setProperty('--muted','#94a3b8');
+        document.documentElement.style.setProperty('--accent','#38bdf8');
+      } else {
+        document.documentElement.style.setProperty('--bg','#f8fafc');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--muted','#334155');
+        document.documentElement.style.setProperty('--accent','#2563eb');
+      }
+    }
+
+    // init
+    renderProjects();
+    toggleTheme();
+  </script>
+</body>
+</html>
