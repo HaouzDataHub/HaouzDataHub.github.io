@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HaouzDataHub — Data Analyst Portfolio</title>
+  <meta name="description" content="Portfolio of Hamza Haouzmani — Data Analyst, specializing in visualization, forecasting, and machine learning." />
+  <link rel="icon" href="images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #101826;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --glass: rgba(255, 255, 255, 0.05);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(180deg, #07101a 0%, #0b1220 100%);
+      color: #e6eef6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    header.site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #041027;
+      font-size: 22px;
+    }
+    .brand h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    nav {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .nav-link:hover {
+      background: var(--glass);
+      color: var(--accent);
+    }
+    .hero {
+      margin: 60px 0 40px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 40px;
+      margin: 0;
+      color: #9be8ff;
+    }
+    .hero p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 16px;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--accent), #7c3aed);
+      color: #041027;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 18px;
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.08);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+      transition: transform .28s, box-shadow .28s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(6, 25, 45, 0.6);
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .card h3 {
+      color: var(--accent);
+      margin: 12px 0 6px;
+    }
+    .card p {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .link-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #38bdf8, #7c3aed);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .link-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #60a5fa, #a855f7);
+    }
+    .skills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media(max-width:640px){
+      .hero h2{font-size:28px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo">H</div>
+        <div>
+          <h1>Hamza Haouzmani</h1>
+          <p>Data Analyst • Visualization • Business Insights</p>
+        </div>
+      </div>
+
+      <nav>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Turning complex data into clear insights</h2>
+      <p>Machine learning • Time-series analysis • Interactive dashboards</p>
+      <a class="btn" href="#projects">Explore Projects</a>
+    </section>
+
+    <section id="projects">
+      <h3 style="color:var(--accent);">Featured Project</h3>
+      <div class="grid">
+        <article class="card">
+          <img src="images/Cyclistic bik presentation.png" alt="Cyclistic Project">
+          <h3>Cyclistic Bike Share Case Study</h3>
+          <p>Comprehensive analysis to understand user behavior and boost memberships.</p>
+          <div class="actions">
+            <a class="link-btn" href="Cyclistic_bik_presentation_analysis_case_study.html" target="_blank">View Project</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:50px; display:flex; align-items:center; gap:40px; flex-wrap:wrap;">
+      <img src="images/profil.jpg" alt="Hamza Haouzmani" style="width:180px; height:180px; border-radius:50%; object-fit:cover; box-shadow:0 0 30px rgba(56,189,248,0.3);" />
+      <div>
+        <h3 style="color:var(--accent); margin-bottom:10px;">About Me</h3>
+        <p style="color:var(--muted); max-width:700px; line-height:1.6;">
+          Hey everyone ,Hamza haouzmani here 
+          I entered the world of data analysis through an experience dictated by circumstances. I was in the construction industry, managing my own company at various stages, but after the COVID-19 pandemic, everything changed. Being passionate about finance and business, I began exploring the world of trading by learning about market movements. My journey began, and I mastered many methods of classical and fundamental analysis, working with various indicators, understanding market depth, and monitoring liquidity and news. But here's where the turning point came. I always asked myself a question I couldn't answer: why aren't all the methods used by retail traders, which ultimately rely on prediction, academically recognized and systematically taught? I discovered that scientific methods differ entirely in their methodology, and that data analysis has rules and principles for achieving real results and making informed decisions. I enrolled in a Coursera course offered by Google and successfully completed it. Now, I'm studying case studies to prepare.
+          My specialities are data visualization ,data Translating i utilize R and SQL Tableau for Visulazation 
+          if you're looking for a data analysis to join your team on a contract basis , i'd love to chat.
+        </p>
+        <div class="skills">
+          <div class="chip">Python</div>
+          <div class="chip">R</div>
+          <div class="chip">SQL</div>
+          <div class="chip">Tableau</div>
+          <div class="chip">Machine Learning</div>
+          <div class="chip">PyTorch</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:50px">
+      <h3 style="color:var(--accent);">Contact</h3>
+      <p style="color:var(--muted);">
+        📧 <a href="mailto:hamza@haouzmanianalytics.com">hamza@haouzmanianalytics.com</a><br>
+        💼 <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank">LinkedIn</a><br>
+        📞 +213 550 714 859<br>
+        🧠 <a href="https://github.com/HaouzDataHub" target="_blank">GitHub — HaouzDataHub</a>
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 HaouzDataHub — Built with 💡 GitHub Pages</p>
+    </footer>
+  </div>
+</body>
+</html>
