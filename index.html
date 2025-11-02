@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HaouzDataHub — Data Analyst Portfolio</title>
+  <meta name="description" content="Portfolio of Hamza Haouzmani — Data Analyst, specializing in visualization and analytics (R, SQL, Tableau, Google Sheets)." />
+  <link rel="icon" href="images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#041022; --bg2:#08152a;
+      --glass: rgba(255,255,255,0.04);
+      --card: rgba(255,255,255,0.03);
+      --muted:#9fb0c2;
+      --accent:#38bdf8;
+      --accent-2:#7c3aed;
+      --accent-3:#60a5fa;
+      --glass-border: rgba(255,255,255,0.06);
+      --glow: rgba(56,189,248,0.14);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      /* animated radial accent + base gradient */
+      --gX:0%; --gY:50%;
+      background:
+        radial-gradient(800px 400px at var(--gX) var(--gY), rgba(124,58,237,0.06), transparent 8%),
+        linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+      transition: background 0.8s linear;
+    }
+
+    /* subtle animated movement */
+    @keyframes floatGradient{
+      0%  { --gX:0%;  --gY:40%; }
+      25% { --gX:25%; --gY:60%; }
+      50% { --gX:50%; --gY:40%; }
+      75% { --gX:75%; --gY:60%; }
+      100%{ --gX:0%;  --gY:40%; }
+    }
+    body{ animation: floatGradient 18s ease-in-out infinite; }
+
+    .container{max-width:1100px;margin:0 auto;padding:28px 20px 64px}
+
+    /* glass sticky navbar */
+    header.site-header{
+      position:sticky;
+      top:12px;
+      z-index:40;
+      padding:10px 14px;
+      margin:0 0 12px 0;
+      backdrop-filter: blur(8px) saturate(120%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:12px;
+      box-shadow: 0 6px 26px rgba(2,6,23,0.55), inset 0 1px 0 rgba(255,255,255,0.02);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:54px;height:54px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:#041027;font-size:20px;
+      box-shadow:0 8px 30px rgba(56,189,248,0.06);
+    }
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;color:var(--muted);font-size:12px}
+
+    nav{display:flex;gap:8px;align-items:center}
+    .nav-link{
+      color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;
+      transition:all .18s ease;
+    }
+    .nav-link:hover{background:var(--glass);color:var(--accent);border:1px solid var(--glass-border)}
+
+    /* hero */
+    .hero{margin:28px 0 22px;text-align:center;padding:12px}
+    .hero h2{font-size:34px;margin:0;color:#bff0ff;line-height:1.02}
+    .hero p{color:var(--muted);margin-top:8px;font-size:15px}
+    .btn{
+      display:inline-block;margin-top:14px;padding:10px 18px;border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#041027;font-weight:700;text-decoration:none;box-shadow:0 12px 36px rgba(56,189,248,0.08);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover{transform:translateY(-4px); box-shadow:0 18px 44px rgba(56,189,248,0.12)}
+
+    /* grid for projects */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px}
+
+    /* glass card */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 8px 28px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s, box-shadow .18s;
+      overflow:hidden;
+      position:relative;
+      will-change: transform, opacity;
+      opacity:0; transform: translateY(18px);
+    }
+    .card.visible{opacity:1; transform:none}
+    .card:hover{transform:translateY(-8px); box-shadow:0 26px 60px rgba(6,25,45,0.6)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px;display:block}
+    .card h3{color:var(--accent);margin:10px 0 8px;font-size:18px}
+    .card p{color:var(--muted);margin:0 0 12px;font-size:14px}
+
+    .actions{display:flex;gap:10px}
+    .link-btn{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;font-weight:700;
+      color:#041027;background:linear-gradient(90deg,var(--accent),var(--accent-2));text-decoration:none;border:none;cursor:pointer;
+      box-shadow:0 10px 30px rgba(56,189,248,0.06);transition:transform .16s ease, box-shadow .16s;
+    }
+    .link-btn:hover{transform:translateY(-4px); box-shadow:0 18px 44px rgba(60,120,200,0.08)}
+    .ghost{
+      padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none;color:var(--accent);
+      background:transparent;border:1px solid rgba(56,189,248,0.10);
+    }
+
+    /* profile area */
+    .profile-wrap{display:flex;gap:24px;align-items:center;margin-top:34px;flex-wrap:wrap}
+    .profile-pic{
+      width:200px;height:200px;border-radius:50%;overflow:hidden;border:4px solid rgba(56,189,248,0.10);
+      box-shadow:0 12px 48px rgba(56,189,248,0.08);
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .profile-pic img{width:100%;height:100%;object-fit:cover;display:block}
+    .profile-pic:hover{transform: translateY(-8px) scale(1.03); box-shadow:0 28px 80px rgba(56,189,248,0.16)}
+
+    .about-card{flex:1; min-width:260px}
+    .about-card h3{margin:0 0 8px;color:var(--accent)}
+    .about-card p{color:var(--muted);line-height:1.6;font-size:15px}
+
+    .skills{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .chip{
+      padding:8px 12px;border-radius:999px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      color:var(--muted);font-weight:700;border:1px solid rgba(255,255,255,0.02);transition: transform .12s ease, box-shadow .12s;
+    }
+    .chip:hover{transform:translateY(-6px); box-shadow:0 12px 30px rgba(56,189,248,0.06); color:#fff; background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+    /* skills cards (bottom section) */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:20px}
+    .skill-card{
+      padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(6px);
+      text-align:center;font-weight:700;color:var(--muted);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .skill-card:hover{transform:translateY(-8px); box-shadow:0 18px 44px rgba(6,25,45,0.5); color:#fff}
+    .skill-card .small{display:block;font-weight:600;color:var(--muted);font-size:13px;margin-top:8px}
+
+    /* contact block */
+    .contact{margin-top:26px;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.02);backdrop-filter:blur(6px)}
+    .contact a{color:var(--accent);text-decoration:none;font-weight:700}
+
+    footer{margin-top:36px;text-align:center;color:var(--muted);font-size:14px;padding-bottom:40px}
+
+    /* responsive */
+    @media (max-width:880px){
+      header.site-header{flex-direction:column;align-items:flex-start;gap:10px;padding:12px}
+      .hero{text-align:left}
+    }
+    @media (max-width:520px){
+      .profile-pic{width:140px;height:140px}
+      .hero h2{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header" role="banner">
+      <div class="brand" role="heading" aria-level="1">
+        <div class="logo" aria-hidden="true">H</div>
+        <div>
+          <h1>Hamza Haouzmani</h1>
+          <p>Data Analyst • Visualization • Business Insights</p>
+        </div>
+      </div>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <a class="nav-link" href="#top">Home</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-link" href="certifications.html">Certifications</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top" role="region" aria-label="Hero">
+        <h2>Turning complex data into clear insights</h2>
+        <p>R • SQL • Google Sheets • Tableau • Excel — Data cleaning, visualization, and actionable recommendations.</p>
+        <a class="btn" href="#projects">Explore Projects</a>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" aria-label="Projects" style="margin-top:18px">
+        <h3 style="color:var(--accent); margin-bottom:12px;">Featured Project</h3>
+        <div class="grid" id="projectsGrid">
+          <!-- injected by JS -->
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" style="margin-top:28px;">
+        <div class="profile-wrap" role="region" aria-label="About me">
+          <div class="profile-pic" aria-hidden="true">
+            <img src="images/profil.jpg" alt="Hamza Haouzmani profile">
+          </div>
+
+          <div class="about-card">
+            <h3>About Me</h3>
+            <p>
+              Hey everyone, Hamza Haouzmani here.
+              I entered the world of data analysis through an experience dictated by circumstances. I was in the construction industry,
+              managing my own company at various stages, but after the COVID-19 pandemic, everything changed.
+              Being passionate about finance and business, I began exploring the world of trading by learning about market movements.
+              I mastered many classical and fundamental analysis methods, worked with various indicators, and learned to monitor liquidity and news.
+              I discovered that scientific methods differ in methodology and that data analysis has rules and principles for achieving real results
+              and making informed decisions. I enrolled in a Coursera course by Google and completed it. Now I'm studying case studies to prepare.
+              My specialties are data visualization and translating data into business recommendations using R, SQL, Tableau, Google Sheets and Excel.
+            </p>
+
+            <div class="skills" aria-hidden="true">
+              <div class="chip">R</div>
+              <div class="chip">SQL</div>
+              <div class="chip">Google Sheets</div>
+              <div class="chip">Tableau</div>
+              <div class="chip">Excel</div>
+              <div class="chip">Data Cleaning</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills block -->
+      <section id="skills" style="margin-top:28px;">
+        <h3 style="color:var(--accent); margin-bottom:12px;">Skills</h3>
+        <div class="skills-grid" aria-hidden="true">
+          <div class="skill-card">R <span class="small">Data analysis & visualization</span></div>
+          <div class="skill-card">SQL <span class="small">Data modeling & queries</span></div>
+          <div class="skill-card">Google Sheets <span class="small">Exploration & collaboration</span></div>
+          <div class="skill-card">Tableau <span class="small">Interactive dashboards</span></div>
+          <div class="skill-card">Data Visualization <span class="small">Charts & storytelling</span></div>
+          <div class="skill-card">Business Analytics <span class="small">Insights & recommendations</span></div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" style="margin-top:28px;">
+        <h3 style="color:var(--accent); margin-bottom:8px;">Contact</h3>
+        <div class="contact" role="region" aria-label="Contact">
+          <p style="margin:0 0 8px;color:var(--muted)">
+            📧 <a href="mailto:hamza@haouzmanianalytics.com">hamza@haouzmanianalytics.com</a><br>
+            📞 +213 550 714 859<br>
+            🔗 <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank" rel="noopener">LinkedIn</a> •
+            <a href="https://github.com/HaouzDataHub" target="_blank" rel="noopener"> GitHub</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- built-by -->
+      <section style="margin-top:20px;text-align:center;color:var(--muted);font-size:13px">
+        Built by <strong>Hamza Haouzmani</strong> using R, SQL, Tableau & Google Sheets.
+      </section>
+
+    </main>
+
+    <footer>
+      <p>© 2025 HaouzDataHub — Built with <span style="color:var(--accent)">care</span> • GitHub Pages</p>
+    </footer>
+  </div>
+
+  <script>
+    /* --- Projects data (keeps your exact info) --- */
+    const projects = [
+      {
+        id: 'cyclistic',
+        title: 'Cyclistic Bike Share Case Study',
+        description: 'Comprehensive analysis to understand user behavior and boost memberships. Tools: R, Google Sheets, Tableau, Excel.',
+        image: 'images/Cyclistic bik presentation.png',
+        link: 'Cyclistic_bik_presentation_analysis_case_study.html',
+        tags: ['R','Tableau','Google Sheets']
+      }
+    ];
+
+    /* render projects into the grid */
+    const grid = document.getElementById('projectsGrid');
+    function renderProjects(){
+      grid.innerHTML = '';
+      projects.forEach(p=>{
+        const el = document.createElement('article');
+        el.className = 'card fade-up';
+        el.innerHTML = `
+          <img src="${p.image}" alt="${p.title}">
+          <h3>${p.title}</h3>
+          <p>${p.description}</p>
+          <div class="actions">
+            <a class="link-btn" href="${p.link}" target="_blank" rel="noopener">View Case Study</a>
+            <a class="ghost" href="${p.link}" target="_blank" rel="noopener">Open</a>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+      initFadeUp();
+    }
+
+    /* IntersectionObserver for fade-up reveal */
+    function initFadeUp(){
+      const items = document.querySelectorAll('.fade-up');
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            entry.target.classList.add('show');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.12});
+      items.forEach(i=>io.observe(i));
+    }
+
+    /* smooth scrolling for navbar */
+    document.querySelectorAll('a.nav-link, a.btn').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href && href.startsWith('#')){
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    /* small hover interaction for profile (subtle body highlight) */
+    const profilePic = document.querySelector('.profile-pic');
+    if(profilePic){
+      profilePic.addEventListener('mouseenter', ()=> document.body.style.filter = 'brightness(1.03)');
+      profilePic.addEventListener('mouseleave', ()=> document.body.style.filter = 'none');
+    }
+
+    /* add tabindex for accessibility */
+    document.querySelectorAll('a').forEach((a,i)=> a.setAttribute('tabindex', '0'));
+
+    /* init */
+    renderProjects();
+    // in case some cards are already in view
+    window.addEventListener('load', ()=> initFadeUp());
+  </script>
+</body>
+</html>
