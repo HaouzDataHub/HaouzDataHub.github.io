@@ -131,6 +131,32 @@ body { scroll-padding-top: 100px; }
   flex-wrap:wrap;
   align-items:center;
 }
+/* === HERO BACKGROUND DATA PATTERN === */
+.hero {
+  position: relative;
+  padding-top: 180px;
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+
+/* عنصر الخلفية */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 10% 20%, rgba(56,189,248,0.06) 1px, transparent 1px),
+                    radial-gradient(circle at 50% 80%, rgba(56,189,248,0.04) 1px, transparent 1px),
+                    radial-gradient(circle at 90% 30%, rgba(56,189,248,0.05) 1px, transparent 1px);
+  background-size: 180px 180px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.hero-wrap {
+  position: relative;
+  z-index: 2; /* يضع النص والصورة فوق النمط */
+}
+
 .btn-primary {
   background:var(--accent);
   color:#041027;
