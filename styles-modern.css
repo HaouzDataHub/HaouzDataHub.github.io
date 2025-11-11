@@ -397,3 +397,12 @@ a:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Loader Hide State */
+#loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  display: none;
+}
