@@ -79,7 +79,7 @@
     transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 500px
     backdrop-filter: blur(8px);
 }
 
@@ -125,6 +125,10 @@
     margin-bottom: var(--space-md);
     color: var(--text-light);
     font-family: var(--font-serif);
+     display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .skill-description {
@@ -132,6 +136,10 @@
     color: var(--text-muted);
     margin-bottom: var(--space-md);
     line-height: 1.6;
+     display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Code Block */
@@ -146,6 +154,8 @@
     font-size: 0.825rem;
     color: #38bdf8;
     line-height: 1.5;
+     max-height: 150px;
+  overflow-y: auto;
 }
 
 .skill-code::-webkit-scrollbar {
