@@ -1,326 +1,179 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamza Haouzmani - About Me</title>
-    <link rel="icon" href="images/profil.jpg" />
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Interight:300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body {
-            font-family: 'Interight', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .navbar {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-        }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1.5rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .navbar a:hover {
-            color: #42d4ff;
-        }
-        .navbar a.active {
-            color: #42d4ff;
-            border-bottom: 2px solid #42d4ff;
-        }
-        .about-header {
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #42d4ff;
-        }
-        .header-text h1 {
-            margin: 0;
-            color: #1e3c72;
-            font-size: 2.5rem;
-        }
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 1rem;
-            font-size: 0.95rem;
-        }
-        .contact-info span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .section {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .section h2 {
-            color: #1e3c72;
-            font-size: 1.8rem;
-            margin-top: 0;
-            border-bottom: 3px solid #42d4ff;
-            padding-bottom: 1rem;
-        }
-        .professional-summary {
-            line-height: 1.8;
-            color: #555;
-            font-size: 1.05rem;
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .skill-tag {
-            background: linear-gradient(135deg, #42d4ff, #2a5298);
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 25px;
-            text-align: center;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .skill-tag:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(66, 212, 255, 0.3);
-        }
-        .experience {
-            margin-bottom: 2rem;
-        }
-        .job-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1e3c72;
-            margin: 0;
-        }
-        .job-company {
-            color: #42d4ff;
-            font-size: 1.05rem;
-            margin: 0.5rem 0 0 0;
-        }
-        .job-dates {
-            color: #888;
-            font-size: 0.95rem;
-            margin: 0.3rem 0 1rem 0;
-        }
-        .job-description {
-            color: #555;
-            line-height: 1.8;
-        }
-        .job-description li {
-            margin: 0.7rem 0;
-        }
-        .education-item {
-            margin-bottom: 1.5rem;
-            padding-left: 2rem;
-            border-left: 3px solid #42d4ff;
-        }
-        .education-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1e3c72;
-            margin: 0;
-        }
-        .education-org {
-            color: #42d4ff;
-            margin: 0.3rem 0;
-        }
-        .education-date {
-            color: #888;
-            font-size: 0.95rem;
-        }
-        .education-description {
-            color: #555;
-            margin-top: 0.7rem;
-            line-height: 1.6;
-        }
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            .header-text h1 {
-                font-size: 1.8rem;
-            }
-            .contact-info {
-                justify-content: center;
-                flex-direction: column;
-            }
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Hamza Haouzmani — Data Analyst specializing in insights, analysis, and strategic decision-making.">
+  <meta name="author" content="Hamza Haouzmani" />
+  <title>About Hamza Haouzmani | HaouzDataHub</title>
+  <link rel="icon" href="images/profil.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- NAVBAR -->
-    <header class="navbar glass" id="navbar">
-        <a href="#home" class="active">Home</a>
-        <a href="#projects">Projects</a>
-        <a href="#certs">Certifications</a>
-        <a href="#contact">Contact</a>
-    </header>
+  <!-- BACK TO TOP BUTTON -->
+  <button id="backToTop" title="Back to top">⬆</button>
 
-    <div class="container">
-        <!-- HEADER -->
-        <div class="about-header" id="home">
-            <div class="header-content">
-                <img src="images/profil.jpg" alt="Hamza Haouzmani" class="profile-image">
-                <div class="header-text">
-                    <h1>Hamza Haouzmani</h1>
-                    <div class="contact-info">
-                        <span>📱 [Your Phone Number]</span>
-                        <span>📧 [Your Email Address]</span>
-                        <span>📍 [Your City, State]</span>
-                        <span>🔗 <a href="[Your LinkedIn Profile URL]" target="_blank" style="color: #42d4ff; text-decoration: none;">LinkedIn</a></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PROFESSIONAL SUMMARY -->
-        <div class="section">
-            <h2>🎯 Professional Summary</h2>
-            <p class="professional-summary">
-                Highly analytical and results-driven professional with proven expertise in Project Management, Risk Management, and Data Analysis. Recently certified in Data Analysis, bringing a strong foundation in Statistical Analysis, Data Interpretation, and Reporting Generation. Adept at leveraging critical thinking and problem-solving skills, honed through managing complex construction projects and high-stakes financial trading, to drive informed decision-making and achieve strategic business objectives.
-            </p>
-        </div>
-
-        <!-- SKILLS -->
-        <div class="section">
-            <h2>🛠 Skills & Proficiencies</h2>
-            <div class="skills-grid">
-                <div class="skill-tag">Data Analysis</div>
-                <div class="skill-tag">Project Management</div>
-                <div class="skill-tag">Financial Analysis</div>
-                <div class="skill-tag">Statistical Analysis</div>
-                <div class="skill-tag">Risk Management</div>
-                <div class="skill-tag">Data Interpretation</div>
-                <div class="skill-tag">Problem Solving</div>
-                <div class="skill-tag">Market Analysis</div>
-                <div class="skill-tag">Data Visualization</div>
-                <div class="skill-tag">Team Leadership</div>
-                <div class="skill-tag">Technical Analysis</div>
-                <div class="skill-tag">Critical Thinking</div>
-                <div class="skill-tag">Stakeholder Communication</div>
-                <div class="skill-tag">Business Acumen</div>
-                <div class="skill-tag">Reporting Generation</div>
-                <div class="skill-tag">Quality Assurance</div>
-                <div class="skill-tag">Decision Making</div>
-            </div>
-        </div>
-
-        <!-- PROFESSIONAL EXPERIENCE -->
-        <div class="section">
-            <h2>💼 Professional Experience</h2>
-            
-            <div class="experience">
-                <h3 class="job-title">Construction Works Manager</h3>
-                <p class="job-company">Urban Planning</p>
-                <p class="job-dates">[Start Date] – [End Date]</p>
-                <ul class="job-description">
-                    <li><strong>Project Leadership & Oversight:</strong> Directed construction projects from initiation to close-out, managing complex logistics, schedules, and resources for efficient, on-time completion.</li>
-                    <li><strong>Budget Oversight:</strong> Managed project budgets, ensuring efficient and cost-effective completion while controlling expenditures and mitigating financial risks.</li>
-                    <li><strong>Compliance & Quality:</strong> Implemented rigorous safety regulations and quality control standards, ensuring 100% compliance with relevant building codes and permits.</li>
-                    <li><strong>Stakeholder Management:</strong> Developed and maintained strong relationships with diverse stakeholders, including clients, community members, and government officials, to facilitate project momentum.</li>
-                    <li><strong>Complex Problem Solving:</strong> Solved unforeseen construction challenges proactively, devising critical solutions to maintain project schedules and achieve successful outcomes.</li>
-                </ul>
-            </div>
-
-            <div class="experience">
-                <h3 class="job-title">Cryptocurrency Trading</h3>
-                <p class="job-company">Self-Directed</p>
-                <p class="job-dates">[Start Date] – [End Date]</p>
-                <ul class="job-description">
-                    <li><strong>Risk Mitigation:</strong> Managed financial risk by diversifying portfolios and strategically utilizing stop-loss orders to mitigate downside exposure in volatile markets.</li>
-                    <li><strong>Market Intelligence:</strong> Analyzed market trends and utilized technical indicators (e.g., RSI, MACD, Moving Averages) to predict future price movements and identify profitable trading opportunities.</li>
-                    <li><strong>Decisive Execution:</strong> Executed trades efficiently and made rapid, high-stakes decisions under pressure to capitalize on price fluctuations and market opportunities.</li>
-                    <li><strong>Regulatory Adaptability:</strong> Maintained up-to-date knowledge of regulatory changes and fundamental shifts affecting cryptocurrency markets to inform trading strategies.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- EDUCATION & CERTIFICATIONS -->
-        <div class="section">
-            <h2>🎓 Education & Certifications</h2>
-            
-            <div class="education-item">
-                <h3 class="education-title">Certified Data Analyst</h3>
-                <p class="education-org">[Issuing Organization]</p>
-                <p class="education-date">Completion Date: [Date]</p>
-                <p class="education-description">
-                    <strong>Key Competencies:</strong> Database Management, Data Interpretation, Statistical Analysis, Data Visualization, and Reporting Generation.
-                </p>
-            </div>
-        </div>
+  <!-- NAVBAR -->
+  <header class="navbar glass" id="navbar">
+    <div class="logo">
+      <img src="images/profil.jpg" alt="Hamza Haouzmani logo" />
+      <h1>HaouzDataHub</h1>
     </div>
+    <nav>
+      <a href="index.html#home">Home</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#certs">Certifications</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+  </header>
 
-    <script>
-        // Smooth scrolling for navbar links
-        document.querySelectorAll('.navbar a').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                    document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
+  <!-- THEME TOGGLE BUTTON -->
+  <button id="theme-toggle" title="Toggle theme">🌙</button>
 
-        // Update active navbar link on scroll
-        window.addEventListener('scroll', () => {
-            const sections = ['home', 'projects', 'certs', 'contact'];
-            const scrollPosition = window.scrollY + 100;
-            
-            sections.forEach(id => {
-                const section = document.getElementById(id);
-                if (section) {
-                    const sectionTop = section.offsetTop;
-                    const sectionBottom = sectionTop + section.offsetHeight;
-                    
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                        document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
-                        document.querySelector(`a[href="#${id}"]`)?.classList.add('active');
-                    }
-                }
-            });
-        });
-    </script>
+  <!-- MAIN ABOUT SECTION -->
+  <main class="hero" id="about">
+    <div class="hero-wrap container">
+      <!-- Profile -->
+      <div class="profile-area">
+        <div class="profile-frame small">
+          <img src="images/profil.jpg" alt="Hamza Haouzmani profile" class="profile-large">
+        </div>
+      </div>
+      <!-- About Content -->
+      <div class="about-area">
+        <h2 class="hero-title">About <span class="accent">Hamza Haouzmani</span></h2>
+        
+        <p class="about-text">
+          I'm Hamza Haouzmani, a data analyst and insights specialist passionate about transforming complex data into actionable business intelligence. My journey into data analysis began after managing my own construction business, which the pandemic disrupted.
+        </p>
+
+        <p class="about-text">
+          Driven by my passion for finance and business, I explored cryptocurrency trading, learned to analyze market data, and discovered the power of analytical methods. This experience shaped my approach to problem-solving and decision-making.
+        </p>
+
+        <p class="about-text">
+          I completed the <strong>Google Data Analytics Professional Certificate</strong> on Coursera and now specialize in transforming data into business insights using <strong>R, SQL, Tableau, and Excel</strong>. I combine technical expertise with strategic thinking to help organizations make data-driven decisions.
+        </p>
+
+        <!-- Skills -->
+        <div class="skills-list">
+          <span class="skill-badge">Data Analysis</span>
+          <span class="skill-badge">R Programming</span>
+          <span class="skill-badge">SQL</span>
+          <span class="skill-badge">Tableau</span>
+          <span class="skill-badge">Excel</span>
+          <span class="skill-badge">Statistical Analysis</span>
+          <span class="skill-badge">Data Visualization</span>
+          <span class="skill-badge">Risk Management</span>
+        </div>
+
+        <!-- Contact Icons -->
+        <div class="contact-icons">
+          <a href="mailto:hamza@haouzmanianalytics.com" title="Email"><img src="icons/email.png" alt="Email icon"></a>
+          <a href="tel:+213550714859" title="Phone"><img src="icons/phone.png" alt="Phone icon"></a>
+          <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank" title="LinkedIn"><img src="icons/linkedin.png" alt="LinkedIn icon"></a>
+          <a href="https://github.com/HaouzDataHub" target="_blank" title="GitHub"><img src="icons/github.png" alt="GitHub icon"></a>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="hero-actions">
+          <a class="btn-primary" href="index.html">← Back to Home</a>
+          <a class="btn ghost" href="mailto:hamza@haouzmanianalytics.com">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- PROFESSIONAL JOURNEY SECTION -->
+  <section class="section glass fade-in">
+    <div class="container">
+      <h3 class="section-title">Professional Journey</h3>
+      
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h4 style="color: var(--text-light); margin-top: 28px; font-size: 1.2rem; font-family: var(--font-alt);">Construction & Project Management</h4>
+        <p class="about-text" style="margin: 12px 0;">
+          Managed multiple construction projects with budgets ranging from thousands to millions, handling complex logistics, stakeholder coordination, and risk management. This experience taught me the importance of data-driven planning and informed decision-making.
+        </p>
+
+        <h4 style="color: var(--text-light); margin-top: 28px; font-size: 1.2rem; font-family: var(--font-alt);">Financial Markets & Trading</h4>
+        <p class="about-text" style="margin: 12px 0;">
+          Explored cryptocurrency trading and financial markets, developing technical analysis skills and risk management strategies. Analyzed market trends using indicators like RSI, MACD, and Moving Averages to identify opportunities and manage exposure.
+        </p>
+
+        <h4 style="color: var(--text-light); margin-top: 28px; font-size: 1.2rem; font-family: var(--font-alt);">Data Analytics Career</h4>
+        <p class="about-text" style="margin: 12px 0;">
+          Completed comprehensive data analytics training, mastering R, SQL, Tableau, and advanced Excel. Now focused on helping organizations unlock data-driven insights that fuel business growth and informed strategic decisions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS SECTION -->
+  <section class="section glass fade-in">
+    <div class="container">
+      <h3 class="section-title">Key Certifications</h3>
+      <div style="max-width: 900px; margin: 20px auto; line-height: 2;">
+        <p class="about-text">✓ Google Data Analytics Professional Certificate</p>
+        <p class="about-text">✓ Data Analysis with R Programming</p>
+        <p class="about-text">✓ SQL for Data Analysis & MySQL Workbench</p>
+        <p class="about-text">✓ Data Visualization with Tableau</p>
+        <p class="about-text">✓ Risk Management in Data Projects</p>
+        <p class="about-text">✓ Google Sheets for Data Analysis</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 HaouzDataHub — Built with care • Hamza Haouzmani</p>
+      <p class="muted small">Designed with Oswald & Inter fonts</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Hide navbar on scroll down
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop && currentScroll > 100) {
+        navbar.classList.add('hide');
+      } else {
+        navbar.classList.remove('hide');
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Theme toggle
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      toggleBtn.textContent = isLight ? '🌞' : '🌙';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      toggleBtn.textContent = '🌞';
+    }
+  </script>
 </body>
 </html>
