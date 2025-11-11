@@ -9,64 +9,83 @@
   <link rel="icon" href="images/profil.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-      <link rel="stylesheet" href="styles-modern.css" />
+  <link rel="stylesheet" href="styles-modern.css" />
 </head>
-
 <body>
   <!-- BACK TO TOP BUTTON -->
   <button id="backToTop" title="Back to top">⬆</button>
-  
-<!-- DATA VISUALIZATION BACKGROUND SVG -->
-<svg id="dataViz" class="data-visualization" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.1; pointer-events: none;" preserveAspectRatio="xMidYMid meet"><defs><style>.dot { fill: #38bdf8; r: 3; opacity: 0.6; } .line { stroke: #38bdf8; stroke-width: 2; fill: none; opacity: 0.4; } .viz-group { animation: float 20s infinite ease-in-out; } @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }</style></defs><g class="viz-group"><line class="line" x1="10%" y1="20%" x2="30%" y2="40%" /><line class="line" x1="30%" y1="40%" x2="50%" y2="25%" /><line class="line" x1="50%" y1="25%" x2="70%" y2="50%" /><circle class="dot" cx="10%" cy="20%" /><circle class="dot" cx="30%" cy="40%" /><circle class="dot" cx="50%" cy="25%" /><circle class="dot" cx="70%" cy="50%" /><circle class="dot" cx="20%" cy="60%" /><circle class="dot" cx="60%" cy="70%" /><circle class="dot" cx="80%" cy="30%" /></g></svg>
+
+  <!-- DATA VISUALIZATION BACKGROUND SVG -->
+  <svg id="dataViz" class="data-visualization" style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.1; pointer-events: none;" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <style>
+        .dot { fill: #38bdf8; r: 3; opacity: 0.6; }
+        .line { stroke: #38bdf8; stroke-width: 2; fill: none; opacity: 0.4; }
+        .viz-group { animation: float 20s infinite ease-in-out; }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-30px); }
+        }
+      </style>
+    </defs>
+    <g class="viz-group">
+      <line class="line" x1="10%" y1="20%" x2="30%" y2="40%" />
+      <line class="line" x1="30%" y1="40%" x2="50%" y2="25%" />
+      <line class="line" x1="50%" y1="25%" x2="70%" y2="50%" />
+      <circle class="dot" cx="10%" cy="20%" />
+      <circle class="dot" cx="30%" cy="40%" />
+      <circle class="dot" cx="50%" cy="25%" />
+      <circle class="dot" cx="70%" cy="50%" />
+      <circle class="dot" cx="20%" cy="60%" />
+      <circle class="dot" cx="60%" cy="70%" />
+      <circle class="dot" cx="80%" cy="30%" />
+    </g>
+  </svg>
 
   <!-- NAVBAR -->
-<!-- NAVBAR -->
-<header class="navbar glass" id="navbar">
-  <div class="logo">
-    <img src="images/profil.jpg" alt="Hamza Haouzmani logo" />
-    <h1>HaouzDataHub</h1>
+  <header class="navbar glass" id="navbar">
+    <div class="logo">
+      <img src="images/profil.jpg" alt="Hamza Haouzmani logo" />
+      <h1>HaouzDataHub</h1>
+    </div>
+    <nav>
+      <a href="#home" class="active">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#certs">Certifications</a>
+      <a href="#contact">Contact</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- THEME TOGGLE BUTTON -->
+  <button id="theme-toggle" title="Toggle theme">🌙</button>
+
+  <!-- PAGE LOADER -->
+  <div id="loader">
+    <div class="profile-ring">
+      <img src="images/profil.jpg" alt="Loading Hamza Haouzmani">
+    </div>
+    <p>Loading Portfolio...</p>
   </div>
-  <nav>
-    <a href="#home" class="active">Home</a>
-    <a href="#projects">Projects</a>
-    <a href="#certs">Certifications</a>
-    <a href="#contact">Contact</a>
-        <a href="about.html">About</a>
-  </nav>
-</header>
 
-<!-- THEME TOGGLE BUTTON -->
-<button id="theme-toggle" title="Toggle theme">🌙</button>
+  <!-- HERO SECTION -->
+  <main class="hero" id="home" style="position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="hero-cta" style="text-align: center; width: 100%; max-width: 800px; padding: 0 20px;">
+      <h1 style="font-size: 3.5rem; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; font-family: 'Oswald', sans-serif;">
+        Transform Data Into <span style="color: #38bdf8;">Actionable Insights</span>
+      </h1>
+      <p style="font-size: 1.2rem; color: #cbd5e1; margin: 0 auto 40px; line-height: 1.6; font-family: 'Inter', sans-serif;">
+        I'm a data analyst specializing in transforming complex data into clear, actionable insights using R, SQL, Tableau, and Excel. Explore my portfolio to see how data-driven decisions drive business success.
+      </p>
+      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+        <a href="#projects" style="padding: 15px 40px; background: #38bdf8; color: #000; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; transition: all 0.3s ease; cursor: pointer; border: 2px solid #38bdf8; font-family: 'Inter', sans-serif;" onmouseover="this.style.background='#0ea5e9'" onmouseout="this.style.background='#38bdf8'">View My Projects</a>
+        <a href="about.html" style="padding: 15px 40px; background: transparent; color: #38bdf8; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; border: 2px solid #38bdf8; transition: all 0.3s ease; cursor: pointer; font-family: 'Inter', sans-serif;" onmouseover="this.style.background='#38bdf8'; this.style.color='#000'" onmouseout="this.style.background='transparent'; this.style.color='#38bdf8'">About Me & CV</a>
+      </div>
+    </div>
+  </main>
 
-<!-- PAGE LOADER -->
-<div id="loader">
-  <div class="profile-ring">
-    <img src="images/profil.jpg" alt="Loading Hamza Haouzmani">
-  </div>
-  <p>Loading Portfolio...</p>
-</div>
-
-<main class="hero" id="home">
-  <div class="hero-wrap container">
-    ...
-  </div>
-</main>
-   <!-- HERO CTA SECTION -->
- <div class="hero-cta" style="position: relative; z-index: 1; text-align: center; padding: 150px 20px 100px; background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);">
-  <h1 style="font-size: 3.5rem; color: #fff; margin-bottom: 20px; font-weight: 700; letter-spacing: -1px; font-family: 'Oswald', sans-serif;">
-   Transform Data Into <span style="color: #38bdf8;">Actionable Insights</span>
-  </h1>
-  <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 600px; margin: 0 auto 40px; line-height: 1.6; font-family: 'Inter', sans-serif;">
-   I'm a data analyst specializing in transforming complex data into clear, actionable insights using R, SQL, Tableau, and Excel. Explore my portfolio to see how data-driven decisions drive business success.
-  </p>
-  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-   <a href="#projects" style="padding: 15px 40px; background: #38bdf8; color: #000; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; transition: all 0.3s ease; cursor: pointer; border: 2px solid #38bdf8; font-family: 'Inter', sans-serif;" onmouseover="this.style.background='#0ea5e9'" onmouseout="this.style.background='#38bdf8'">View My Projects</a>
-   <a href="about.html" style="padding: 15px 40px; background: transparent; color: #38bdf8; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; border: 2px solid #38bdf8; transition: all 0.3s ease; cursor: pointer; font-family: 'Inter', sans-serif;" onmouseover="this.style.background='#38bdf8'; this.style.color='#000'" onmouseout="this.style.background='transparent'; this.style.color='#38bdf8'">About Me & CV</a>
-  </div>
- </div>
-
-
-  <main class="hero" id="home">
+  <!-- ABOUT SECTION -->
+  <main class="hero" style="position: relative; z-index: 1;">
     <div class="hero-wrap container">
       <!-- Profile -->
       <div class="profile-area">
@@ -74,11 +93,9 @@
           <img src="images/profil.jpg" alt="Hamza Haouzmani profile" class="profile-large">
         </div>
       </div>
-
       <!-- About -->
       <div class="about-area">
         <h2 class="hero-title">Turning complex data into <span class="accent">clear actionable insights</span></h2>
-
         <!-- Modern skill badges -->
         <div class="skills-list">
           <span class="skill-badge">R</span>
@@ -87,20 +104,7 @@
           <span class="skill-badge">Tableau</span>
           <span class="skill-badge">Excel</span>
         </div>
-
-        <p class="about-text">
-          Hey everyone, I’m <strong>Hamza Haouzmani</strong>.<br>
-          My journey into data analysis began after managing my own construction business, which the pandemic disrupted.<br>
-          Driven by my passion for finance and business, I explored trading, learned to analyze market data, and discovered the power of analytical methods.<br>
-          I completed the <em>Google Data Analytics Certificate</em> on Coursera and now specialize in transforming data into business insights using R, SQL, Tableau, and Excel.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn-primary" href="Cyclistic_bik_presentation_analysis_case_study.html">View My Work</a>
-          <a class="btn ghost" href="files/Hamza_Haouzmani_CV.pdf" target="_blank" rel="noopener">View CV (PDF)</a>
-        </div>
-
-        <!-- Compact contact icons -->
+        <!-- Contact icons -->
         <div class="contact-icons">
           <a href="mailto:hamza@haouzmanianalytics.com" title="Email"><img src="icons/email.png" alt="Email icon"></a>
           <a href="tel:+213550714859" title="Phone"><img src="icons/phone.png" alt="Phone icon"></a>
@@ -128,98 +132,85 @@
   </section>
 
   <!-- PROJECTS -->
-<section id="projects" class="section section-dark">
-  <h3 class="section-title light">Projects</h3>
-  <div class="projects-grid">
-
-    <article class="project-card">
-      <div class="project-media">
-        <img src="images/Cyclistic bik presentation.png" alt="Cyclistic Bike Share Dashboard">
-      </div>
-      <div class="project-body">
-        <h3>Cyclistic Bike Share Case Study</h3>
-        <p class="muted small">
-          Capstone project — Rider segmentation & insights using R, Google Sheets, and Tableau.
-        </p>
-        <div class="project-actions">
-          <a class="btn primary-sm" href="Cyclistic_bik_presentation_analysis_case_study.html" target="_blank">Open Case Study</a>
-          <a class="btn-outline" href="https://public.tableau.com/views/Cyclistic_Bike_Analysis/Dashboard1" target="_blank">Interactive Dashboard</a>
+  <section id="projects" class="section section-dark">
+    <h3 class="section-title light">Projects</h3>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-media">
+          <img src="images/Cyclistic bik presentation.png" alt="Cyclistic Bike Share Dashboard">
         </div>
-      </div>
-    </article>
-
-    <!-- ✅ GOOGLE SLIDES PRESENTATION INSIDE SAME GRID -->
-    <article class="project-card">
+        <div class="project-body">
+          <h3>Cyclistic Bike Share Case Study</h3>
+          <p class="muted small">Capstone project — Rider segmentation & insights using R, Google Sheets, and Tableau.</p>
+          <div class="project-actions">
+            <a class="btn primary-sm" href="Cyclistic_bik_presentation_analysis_case_study.html" target="_blank">Open Case Study</a>
+            <a class="btn-outline" href="https://public.tableau.com/views/Cyclistic_Bike_Analysis/Dashboard1" target="_blank">Interactive Dashboard</a>
+          </div>
+        </div>
+      </article>
+      <article class="project-card">
         <a href="https://docs.google.com/presentation/d/1fsJ0qmB1oAlUmA69mCiwJUpRf018j-tKZzB5fkJmMUc/edit?usp=sharing" target="_blank" class="project-link">
           <div class="project-media">
-            <img src="images/MINT_CLASSICS_WAREHOUSE.png" alt="MINT CLASSICS WAREHOUSE REPORT " class="project-cover">
-           </div>
+            <img src="images/MINT_CLASSICS_WAREHOUSE.png" alt="MINT CLASSICS WAREHOUSE REPORT" class="project-cover">
+          </div>
           <div class="project-body">
-            <h3>Min Classics Warehouse Report Report</h3>
+            <h3>Min Classics Warehouse Report</h3>
             <p class="muted small">Interactive presentation summarizing project insights and findings.</p>
             <div class="project-actions">
               <span class="btn-outline">Open Presentation</span>
-              </div>
             </div>
-          </a>
+          </div>
+        </a>
       </article>
-    
-    <article class="project-card placeholder">
-      <div class="project-media empty">
-        <div class="empty-label">Upcoming Projects</div>
-      </div>
-      <div class="project-body">
-        <h3>More projects coming soon</h3>
-        <p class="muted small">Stay tuned for new case studies and dashboards.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-
-<!-- CONTACT -->
-<section id="contact" class="section contact-section glass fade-in">
-  <div class="container">
-    <h2 class="section-title">Get in Touch</h2>
-    <p class="muted section-sub">Let’s connect — I’m open to collaborations, freelance work, or full-time roles.</p>
-
-    <div class="contact-cards">
-      <a href="mailto:hamza@haouzmanianalytics.com" class="contact-item">
-        <img src="icons/email.png" alt="Email icon">
-        <div>
-          <h4>Email</h4>
-          <p>hamza@haouzmanianalytics.com</p>
+      <article class="project-card placeholder">
+        <div class="project-media empty">
+          <div class="empty-label">Upcoming Projects</div>
         </div>
-      </a>
-
-      <a href="tel:+213550714859" class="contact-item">
-        <img src="icons/phone.png" alt="Phone icon">
-        <div>
-          <h4>Phone</h4>
-          <p>+213 550 714 859</p>
+        <div class="project-body">
+          <h3>More projects coming soon</h3>
+          <p class="muted small">Stay tuned for new case studies and dashboards.</p>
         </div>
-      </a>
-
-      <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank" class="contact-item">
-        <img src="icons/linkedin.png" alt="LinkedIn icon">
-        <div>
-          <h4>LinkedIn</h4>
-          <p>/in/hamza-haouzmani</p>
-        </div>
-      </a>
-
-      <a href="https://github.com/HaouzDataHub" target="_blank" class="contact-item">
-        <img src="icons/github.png" alt="GitHub icon">
-        <div>
-          <h4>GitHub</h4>
-          <p>/HaouzDataHub</p>
-        </div>
-      </a>
+      </article>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- CONTACT -->
+  <section id="contact" class="section contact-section glass fade-in">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="muted section-sub">Let's connect — I'm open to collaborations, freelance work, or full-time roles.</p>
+      <div class="contact-cards">
+        <a href="mailto:hamza@haouzmanianalytics.com" class="contact-item">
+          <img src="icons/email.png" alt="Email icon">
+          <div>
+            <h4>Email</h4>
+            <p>hamza@haouzmanianalytics.com</p>
+          </div>
+        </a>
+        <a href="tel:+213550714859" class="contact-item">
+          <img src="icons/phone.png" alt="Phone icon">
+          <div>
+            <h4>Phone</h4>
+            <p>+213 550 714 859</p>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank" class="contact-item">
+          <img src="icons/linkedin.png" alt="LinkedIn icon">
+          <div>
+            <h4>LinkedIn</h4>
+            <p>/in/hamza-haouzmani</p>
+          </div>
+        </a>
+        <a href="https://github.com/HaouzDataHub" target="_blank" class="contact-item">
+          <img src="icons/github.png" alt="GitHub icon">
+          <div>
+            <h4>GitHub</h4>
+            <p>/HaouzDataHub</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="site-footer">
@@ -234,43 +225,36 @@
     // Hide navbar on scroll down
     let lastScrollTop = 0;
     const navbar = document.querySelector('.navbar');
-
     window.addEventListener('scroll', () => {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
       if (currentScroll > lastScrollTop && currentScroll > 100) {
         navbar.classList.add('hide');
       } else {
         navbar.classList.remove('hide');
       }
-
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
   </script>
   <script>
-  // === PAGE LOADER ===
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    setTimeout(() => loader.classList.add('hide'), 700); // اختفاء بعد 0.7 ثانية
-  });
-
-  // === THEME TOGGLE ===
-  const toggleBtn = document.getElementById('theme-toggle');
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    toggleBtn.textContent = isLight ? '🌞' : '🌙';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
-
-  // حفظ الوضع بعد إعادة تحميل الصفحة
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-    toggleBtn.textContent = '🌞';
-  }
-</script>
-
-
+    // === PAGE LOADER ===
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => loader.classList.add('hide'), 700);
+    });
+    // === THEME TOGGLE ===
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      toggleBtn.textContent = isLight ? '🌞' : '🌙';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+    // حفظ الوضع بعد إعادة تحميل الصفحة
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      toggleBtn.textContent = '🌞';
+    }
+  </script>
 </body>
 </html>
