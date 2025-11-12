@@ -89,6 +89,13 @@ function viewDetailModal(skillId) {
 // EDIT FUNCTIONALITY
 // ================================================
 function editSkill(skillId) {
+      if (!isAdmin) {
+              checkAdminAccess();
+              if (!isAdmin) {
+                        alert('لا يمكنك تعديل بدون كلمة مرور');
+                        return;
+                      }
+            }
     const skills = loadSkills();
     const skill = skills.find(s => s.id == skillId);
     if (!skill) return;
@@ -110,6 +117,13 @@ function editSkill(skillId) {
 // DELETE FUNCTIONALITY (FIXED)
 // ================================================
 function deleteSkillPost(skillId) {
+      if (!isAdmin) {
+              checkAdminAccess();
+              if (!isAdmin) {
+                        alert('لا يمكنك حذف بدون كلمة مرور');
+                        return;
+                      }
+            }
     if (confirm('Are you sure you want to delete this skill post? This action cannot be undone.')) {
         deleteSkill(skillId);
     }
