@@ -383,54 +383,45 @@
 .btn-view,
 .btn-edit,
 .btn-delete {
+  width: 100%;
   padding: 8px 12px;
   border: none;
   border-radius: 4px;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   transition: all 0.2s ease;
+  color: white;
+  margin-bottom: 4px;
 }
 
 .btn-view {
-  background-color: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background-color: #38bdf8;
 }
 
 .btn-view:hover {
-  background-color: rgba(56, 189, 248, 0.25);
-  border-color: #38bdf8;
+  background-color: #0ea5e9;
+  opacity: 0.9;
 }
 
 .btn-edit {
-  background-color: rgba(251, 146, 60, 0.15);
-  color: #fb923c;
-  border: 1px solid rgba(251, 146, 60, 0.3);
+  background-color: #fb923c;
 }
 
 .btn-edit:hover {
-  background-color: rgba(251, 146, 60, 0.25);
-  border-color: #fb923c;
+  background-color: #f97316;
+  opacity: 0.9;
 }
 
 .btn-delete {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: #ef4444;
 }
 
 .btn-delete:hover {
-  background-color: rgba(239, 68, 68, 0.25);
-  border-color: #ef4444;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .skill-post,
-    .filter-btn,
-    .btn-copy {
-        transition: none;
-    }
+  background-color: #dc2626;
+  opacity: 0.9;
 }
