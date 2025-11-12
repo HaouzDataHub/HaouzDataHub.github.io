@@ -1,6 +1,35 @@
 // ================================================
 // SKILLS PAGE - DYNAMIC FUNCTIONALITY (UPDATED)
 // ================================================
+
+// ================================================
+// ADMIN AUTHENTICATION - يرجى تغيير كلمة المرور
+// ================================================
+const ADMIN_PASSWORD = 'admin123'; // غيّر هذه الكلمة لكلمة قوية
+let isAdmin = false;
+
+function checkAdminAccess() {
+  const password = prompt('أدخل كلمة المرور للوصول إلى صلاحيات التعديل والحذف:');
+  if (password === ADMIN_PASSWORD) {
+    isAdmin = true;
+    sessionStorage.setItem('isAdmin', 'true');
+    alert('تم تسجيل الدخول بنجاح!');
+  } else {
+    isAdmin = false;
+    sessionStorage.removeItem('isAdmin');
+    if (password !== null) {
+      alert('كلمة المرور غير صحيحة!');
+    }
+  }
+}
+
+// التحقق من حالة المصادقة عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('isAdmin') === 'true') {
+    isAdmin = true;
+  }
+});
+
 // DOM Elements
 const postsGrid = document.getElementById('postsGrid');
 const filterButtons = document.querySelectorAll('.filter-btn');
