@@ -378,6 +378,10 @@
     .btn-copy {
         width: 100%;
     }
+
+   .btn-edit {
+  width: 100%;
+}
 }
 
 @media (prefers-reduced-motion: reduce) {
