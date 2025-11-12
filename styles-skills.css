@@ -399,29 +399,39 @@
   margin-bottom: 4px;
 }
 
-.btn-view {
-  background-color: #38bdf8;
+
+
+.btn-view,
+.btn-edit,
+.btn-delete {
+ flex: 1;
+ padding: var(--space-sm) var(--space-md);
+ background: transparent;
+ color: var(--primary);
+ border: 1px solid rgba(56, 189, 248, 0.3);
+ border-radius: 8px;
+ font-size: var(--fs-sm);
+ font-weight: 600;
+ cursor: pointer;
+ transition: all var(--transition-fast);
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
 }
 
 .btn-view:hover {
-  background-color: #0ea5e9;
-  opacity: 0.9;
-}
-
-.btn-edit {
-  background-color: #fb923c;
+ background: rgba(56, 189, 248, 0.1);
+ border-color: var(--primary);
+ color: #22d3ee;
 }
 
 .btn-edit:hover {
-  background-color: #f97316;
-  opacity: 0.9;
-}
-
-.btn-delete {
-  background-color: #ef4444;
+ background: rgba(56, 189, 248, 0.1);
+ border-color: var(--primary);
+ color: #22d3ee;
 }
 
 .btn-delete:hover {
-  background-color: #dc2626;
-  opacity: 0.9;
+ background: rgba(56, 189, 248, 0.1);
+ border-color: var(--primary);
+ color: #22d3ee;
 }
