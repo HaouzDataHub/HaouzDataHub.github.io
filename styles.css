@@ -1,3 +1,4 @@
+
 :root {
   --bg-dark: #0e1116;
   --bg-gradient-dark: linear-gradient(135deg, #0a0e1a 0%, #1a2940 100%);
@@ -759,5 +760,335 @@ body.light-mode .contact-item:hover {
 
   .contact-cards {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* ====== MOBILE OPTIMIZATION - RESPONSIVE DESIGN ====== */
+
+/* Small Phones: 320px - 480px */
+@media (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 12px;
+    margin: 0 auto;
+  }
+
+  /* Navbar Mobile */
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 0;
+    z-index: 60;
+  }
+
+  .navbar .logo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .navbar .logo h1 {
+    font-size: 16px;
+  }
+
+  .navbar .logo img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 8px;
+  }
+
+  .navbar nav a {
+    font-size: 12px;
+    padding: 6px 8px;
+    margin: 0;
+  }
+
+  /* Hero Section Mobile */
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 40px;
+  }
+
+  .hero-wrap {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px 12px;
+  }
+
+  .profile-frame {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+  .profile-frame:hover {
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  .hero-title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .about-text {
+    text-align: center;
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .btn-primary {
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 24px;
+  }
+
+  .btn.ghost {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  /* Sections Mobile */
+  .section {
+    padding: 20px 12px;
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+
+  .section h3,
+  .section-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+
+  /* Grid Systems */
+  .cert-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .cert-card img {
+    height: 120px;
+  }
+
+  .project-media img {
+    height: 160px;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Skills List Mobile */
+  .skills-list {
+    gap: 8px;
+    margin: 10px 0;
+    justify-content: center;
+  }
+
+  .skill-badge {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    padding: 30px 12px;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-item {
+    padding: 12px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-item img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .contact-icons {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .contact-icons a {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Buttons Mobile */
+  button, .btn,
+  input[type="button"],
+  input[type="submit"] {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 20px;
+  }
+
+  /* Back to Top Button */
+  #backToTop {
+    width: 40px;
+    height: 40px;
+    bottom: 20px;
+    right: 16px;
+    font-size: 18px;
+  }
+
+  /* Theme Toggle */
+  #theme-toggle {
+    width: 38px;
+    height: 38px;
+    top: 62px;
+    right: 12px;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 16px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Medium Phones: 481px - 768px */
+@media (max-width: 768px) and (min-width: 481px) {
+  .container {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .navbar {
+    padding: 10px 14px;
+  }
+
+  .navbar nav a {
+    font-size: 13px;
+    padding: 7px 10px;
+    margin-left: 8px;
+  }
+
+  .hero-wrap {
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    padding: 30px 16px;
+  }
+
+  .profile-frame {
+    width: 180px;
+    height: 180px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
+  }
+
+  .cert-grid,
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .section {
+    padding: 30px 16px;
+    margin: 20px 0;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .contact-item {
+    padding: 14px;
+  }
+}
+
+/* Tablets and larger: 769px and up */
+@media (min-width: 769px) {
+  .hero-wrap {
+    grid-template-columns: 320px 1fr;
+  }
+
+  .cert-grid,
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Landscape Mode Mobile */
+@media (max-height: 500px) and (max-width: 1024px) {
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 30px;
+  }
+
+  .hero-wrap {
+    gap: 12px;
+    padding: 20px 12px;
+  }
+
+  .profile-frame {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Touch Friendly Buttons */
+@media (hover: none) and (pointer: coarse) {
+  button, .btn,
+  input[type="button"],
+  input[type="submit"],
+  .skill-badge,
+  .contact-icons a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-primary {
+    padding: 12px 18px;
   }
 }
