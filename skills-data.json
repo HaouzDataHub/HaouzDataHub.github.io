@@ -3,21 +3,80 @@
     "id": 1,
     "title": "SQL JOIN - Basic Syntax",
     "category": "SQL",
+    "image": "https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=SQL+JOIN",
     "description": "Learn how to perform INNER JOINs to combine data from multiple tables efficiently.",
-    "code": "SELECT a.*, b.column_name\nFROM table_a a\nINNER JOIN table_b b\nON a.id = b.id\nWHERE a.date > \"2024-01-01\"\nORDER BY a.created_at DESC;"
+    "code": "SELECT a.*, b.column_name\nFROM table_a a\nINNER JOIN table_b b\nON a.id = b.id\nWHERE a.date > '2024-01-01'\nORDER BY a.created_at DESC"
   },
   {
     "id": 2,
-    "title": "SQL GROUP BY & AGGREGATE",
-    "category": "SQL",
-    "description": "Master GROUP BY clauses with aggregate functions to summarize data by categories.",
-    "code": "SELECT\n  category,\n  COUNT(*) as total_count,\n  AVG(amount) as average_amount,\n  MAX(amount) as max_amount\nFROM sales\nGROUP BY category\nHAVING COUNT(*) > 10"
+    "title": "Python Data Cleaning",
+    "category": "Python",
+    "image": "https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Python+Pandas",
+    "description": "Master data cleaning techniques using Pandas to remove duplicates, handle missing values, and normalize data.",
+    "code": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\ndf.drop_duplicates(inplace=True)\ndf.fillna(df.mean(), inplace=True)\ndf['column'] = (df['column'] - df['column'].mean()) / df['column'].std()"
   },
   {
     "id": 3,
-    "title": "SQL Window Functions",
+    "title": "R Data Visualization",
+    "category": "R",
+    "image": "https://via.placeholder.com/300x200/95E1D3/FFFFFF?text=R+ggplot2",
+    "description": "Create beautiful and informative visualizations using ggplot2 with aesthetic mappings and faceting.",
+    "code": "library(ggplot2)\n\nggplot(data = mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +\n  geom_point(size = 3) +\n  facet_wrap(~am) +\n  theme_minimal() +\n  labs(title = 'Motor Trend Analysis')"
+  },
+  {
+    "id": 4,
+    "title": "Tableau Dashboard Design",
+    "category": "Tableau",
+    "image": "https://via.placeholder.com/300x200/FFE66D/FFFFFF?text=Tableau+Dashboard",
+    "description": "Design interactive dashboards with dynamic filters, calculated fields, and real-time data connections.",
+    "code": "[Sales by Region]\nDimension: Region\nMeasure: SUM(Sales)\nFilter: [Year] = 2024\n\n[Performance Metrics]\nKPI: SUM(Revenue) / SUM(Cost)\nColor: [Profit Status]\nSize: [Order Count]"
+  },
+  {
+    "id": 5,
+    "title": "Excel Advanced Formulas",
+    "category": "Excel",
+    "image": "https://via.placeholder.com/300x200/A8E6CF/FFFFFF?text=Excel+Formulas",
+    "description": "Use advanced Excel functions like VLOOKUP, INDEX-MATCH, and array formulas for complex data analysis.",
+    "code": "=IFERROR(INDEX($A$2:$A$100,MATCH(F2,$B$2:$B$100,0)),\"Not Found\")\n\n=SUMIFS($C$2:$C$100,$A$2:$A$100,\"Sales\",$B$2:$B$100,\">=1000\")\n\n=SUMPRODUCT((range1)*(range2)/(COUNTIFS(range1,range1)))"
+  },
+  {
+    "id": 6,
+    "title": "SQL GROUP BY & AGGREGATE",
     "category": "SQL",
-    "description": "Advanced SQL using window functions like ROW_NUMBER() and AVG() for complex queries.",
-    "code": "SELECT\n  id,\n  name,\n  salary,\n  ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank,\n  AVG(salary) OVER (PARTITION BY department) as dept_avg"
+    "image": "https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=SQL+Aggregate",
+    "description": "Master GROUP BY clauses with aggregate functions to summarize data by categories.",
+    "code": "SELECT category,\n       COUNT(*) as total_count,\n       AVG(amount) as average_amount,\n       MAX(amount) as max_amount\nFROM sales\nGROUP BY category\nHAVING COUNT(*) > 10\nORDER BY total_count DESC"
+  },
+  {
+    "id": 7,
+    "title": "Python Web Scraping",
+    "category": "Python",
+    "image": "https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Web+Scraping",
+    "description": "Extract data from websites using BeautifulSoup and requests library for automated data collection.",
+    "code": "import requests\nfrom bs4 import BeautifulSoup\n\nurl = 'https://example.com'\nresponse = requests.get(url)\nsoup = BeautifulSoup(response.content, 'html.parser')\ndata = soup.find_all('div', class_='data')\nfor item in data:\n    print(item.get_text())"
+  },
+  {
+    "id": 8,
+    "title": "R Statistical Analysis",
+    "category": "R",
+    "image": "https://via.placeholder.com/300x200/95E1D3/FFFFFF?text=R+Statistics",
+    "description": "Perform hypothesis testing, regression analysis, and statistical modeling with R.",
+    "code": "# T-test\nt.test(group1, group2, alternative='two.sided')\n\n# Linear Regression\nmodel <- lm(y ~ x1 + x2, data = df)\nsummary(model)\n\n# Correlation\ncor.test(df$x, df$y, method='pearson')"
+  },
+  {
+    "id": 9,
+    "title": "Tableau Data Connections",
+    "category": "Tableau",
+    "image": "https://via.placeholder.com/300x200/FFE66D/FFFFFF?text=Data+Connection",
+    "description": "Connect Tableau to various data sources including databases, CSV files, and cloud services.",
+    "code": "[Database Connection]\nServer: database.example.com\nPort: 5432\nDatabase: analytics\nAuth: SQL Server Login\n\n[Extract Settings]\nRefresh: Daily at 2 AM\nIncremental: ON\nFilter: date >= [TODAY()-30]"
+  },
+  {
+    "id": 10,
+    "title": "Excel Pivot Tables",
+    "category": "Excel",
+    "image": "https://via.placeholder.com/300x200/A8E6CF/FFFFFF?text=Pivot+Table",
+    "description": "Create and customize pivot tables to analyze large datasets and generate summary reports.",
+    "code": "Data > Pivot Table > Create\nRows: Product Category\nColumns: Year\nValues: SUM(Sales)\nFilters: [Region], [Quarter]\nFormat: Number, Thousand Separator"
   }
 ]
