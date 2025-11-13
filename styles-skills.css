@@ -380,6 +380,54 @@
     }
 }
 
+/* Mobile Phone Optimization - Skills Page Code Display */
+@media (max-width: 480px) {
+  .skill-post {
+    height: auto;
+    min-height: 600px;
+  }
+  
+  .skill-code {
+    max-height: none;
+    min-height: 200px;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    font-size: 0.75rem;
+    padding: var(--space-sm);
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  
+  .skill-image {
+    height: 150px;
+  }
+  
+  .skill-body {
+    padding: var(--space-md);
+  }
+  
+  .skill-title {
+    font-size: 1rem;
+  }
+  
+  .skill-description {
+    font-size: 0.8rem;
+  }
+  
+  .filter-buttons {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+  
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
+
 .btn-view,
 .btn-edit,
 .btn-delete {
