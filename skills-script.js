@@ -79,15 +79,15 @@ function logoutAdmin() {
 function showEditDeleteButtons() {
   const editBtns = document.querySelectorAll('.btn-edit');
   const deleteBtns = document.querySelectorAll('.btn-delete');
-  editBtns.forEach(btn => btn.style.display = 'inline-flex');
-  deleteBtns.forEach(btn => btn.style.display = 'inline-flex');
+  editBtns.forEach(btn => btn.style.cssText = 'display: inline-flex !important');
+  deleteBtns.forEach(btn => btn.style.cssText = 'display: inline-flex !important');
 }
 
 function hideEditDeleteButtons() {
   const editBtns = document.querySelectorAll('.btn-edit');
   const deleteBtns = document.querySelectorAll('.btn-delete');
-  editBtns.forEach(btn => btn.style.display = 'none');
-  deleteBtns.forEach(btn => btn.style.display = 'none');
+  editBtns.forEach(btn => btn.style.cssText = 'display: none !important');
+  deleteBtns.forEach(btn => btn.style.cssText = 'display: none !important');
 }
 
 function showAddButton() {
@@ -97,7 +97,7 @@ function showAddButton() {
 
 function hideAddButton() {
   const addBtn = document.getElementById('addSkillBtn');
-  if (addBtn) addBtn.style.display = 'none';
+  if (addBtn) addbtn.style.cssText = 'display: none !important';
 }
 
 // التحقق من حالة المصادقة عند تحميل الصفحة
@@ -112,11 +112,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })
 // التحقق من حالة المصادقة عند تحميل الصفحة
-window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('isAdmin') === 'true') {
-    isAdmin = true;
-  }
-});
 
 // DOM Elements
 const postsGrid = document.getElementById('postsGrid');
@@ -406,7 +401,7 @@ window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
         backToTopBtn.style.display = 'flex';
     } else {
-        backToTopBtn.style.display = 'none';
+        backToTopbtn.style.cssText = 'display: none !important';
     }
 });
 
