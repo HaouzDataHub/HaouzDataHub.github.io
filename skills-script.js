@@ -286,7 +286,19 @@ function deleteSkill(skillId) {
 // ================================================
 // LOAD AND SAVE SKILLS
 // ================================================
-function loadSkills() {
+264
+
+  function loadSkills() {
+ return cachedSkills || getDefaultSkills();
+}
+
+// تحميل وحفظ المهارات
+function saveSkills(skills) {
+ localStorage.setItem('skillsPosts', JSON.stringify(skills));
+ // تحديث الـ cachedSkills
+ cachedSkills = skills;
+}
+  () {
  return cachedSkills || getDefaultSkills();
 
 
