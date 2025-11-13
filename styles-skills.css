@@ -380,54 +380,6 @@
     }
 }
 
-/* Mobile Phone Optimization - Skills Page Code Display */
-@media (max-width: 480px) {
-  .skill-post {
-    height: auto;
-    min-height: 600px;
-  }
-  
-  .skill-code {
-    max-height: none;
-    min-height: 200px;
-    height: auto;
-    overflow-y: auto;
-    overflow-x: auto;
-    font-size: 0.75rem;
-    padding: var(--space-sm);
-    line-height: 1.4;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all;
-  }
-  
-  .skill-image {
-    height: 150px;
-  }
-  
-  .skill-body {
-    padding: var(--space-md);
-  }
-  
-  .skill-title {
-    font-size: 1rem;
-  }
-  
-  .skill-description {
-    font-size: 0.8rem;
-  }
-  
-  .filter-buttons {
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
-  
-  .filter-btn {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-  }
-}
-
 .btn-view,
 .btn-edit,
 .btn-delete {
@@ -474,40 +426,4 @@
   background: rgba(56, 189, 248, 0.1);
   border-color: var(--primary);
   color: #22d3ee;
-}
-
-
-/* ================================================ */
-/* SECURITY: Hide Edit/Delete Buttons by Default */
-/* ================================================ */
-.btn-edit,
-.btn-delete {
-  display: none !important; /* Hidden by default */
-}
-
-#addSkillBtn {
-  display: none !important; /* Hidden by default for non-admins */
-}
-
-/* Admin Logout Button */
-#logoutBtn {
-  display: none;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #f17055 0%, #d93026 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#logoutBtn:hover {
-  background: linear-gradient(135deg, #d93026 0%, #c42015 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(249, 112, 85, 0.3);
 }
