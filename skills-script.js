@@ -424,3 +424,107 @@ document.addEventListener('DOMContentLoaded', () => {
     const allBtn = document.querySelector('[data-filter="all"]');
     if (allBtn) allBtn.classList.add('active');
 });
+
+
+// ================================================
+// SECRET ADMIN ACCESS - اختصار لوحة المفاتيح السري
+// ================================================
+// اضغط: Ctrl+Shift+A لفتح نافذة تسجيل الدخول
+let secretKeySequence = [];
+const SECRET_KEYS = ['Control', 'Shift', 'KeyA'];
+
+document.addEventListener('keydown', (e) => {
+  // بناء تسلسل المفاتيح
+  const keyCode = e.code || e.key;
+  const currentKey = e.ctrlKey ? 'Control' : e.shiftKey ? 'Shift' : keyCode;
+  
+  secretKeySequence.push(currentKey);
+  
+  // احتفظ بآخر 3 مفاتيح فقط
+  if (secretKeySequence.length > 3) {
+    secretKeySequence.shift();
+  }
+  
+  // تحقق من التسلسل: Ctrl + Shift + A
+  if (e.ctrlKey && e.shiftKey && (e.code === 'KeyA' || e.key === 'a')) {
+    e.preventDefault();
+    checkAdminAccess();
+    secretKeySequence = [];
+  }
+});
+
+// ================================================
+// ALTERNATIVE: HIDDEN ADMIN PANEL LINK
+// ================================================
+// رابط مخفي يمكن الضغط عليه لفتح نافذة الدخول
+const createHiddenAdminPanel = () => {
+  const adminPanel = document.createElement('div');
+  adminPanel.id = 'hiddenAdminPanel';
+  adminPanel.style.cssText = `
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 2px solid rgba(56, 189, 248, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    z-index: 999;
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+  `;
+  
+  adminPanel.innerHTML = '⚙️';
+  adminPanel.title = 'Admin Panel (Ctrl+Shift+A)';
+  
+  adminPanel.addEventListener('mouseenter', function() {
+    this.style.background = 'rgba(56, 189, 248, 0.2)';
+    this.style.borderColor = 'rgba(56, 189, 248, 0.6)';
+  });
+  
+  adminPanel.addEventListener('mouseleave', function() {
+    this.style.background = 'rgba(56, 189, 248, 0.1)';
+    this.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+  });
+  
+  adminPanel.addEventListener('click', checkAdminAccess);
+  
+  // أظهر الزر فقط عند تحميل الصفحة (للمسؤول القديم)
+  if (sessionStorage.getItem('isAdmin') === 'true') {
+    adminPanel.style.opacity = '1';
+    adminPanel.style.pointerEvents = 'auto';
+  }
+  
+  document.body.appendChild(adminPanel);
+};
+
+// اُستدعي هذه الدالة عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', createHiddenAdminPanel);
+
+// عند تسجيل الدخول بنجاح، أظهر الزر المخفي
+const originalShowButtons = showEditDeleteButtons;
+window.showEditDeleteButtons = function() {
+  const adminPanel = document.getElementById('hiddenAdminPanel');
+  if (adminPanel) {
+    adminPanel.style.opacity = '1';
+    adminPanel.style.pointerEvents = 'auto';
+  }
+  originalShowButtons();
+};
+
+// عند تسجيل الخروج، أخفِ الزر المخفي
+const originalHideButtons = hideEditDeleteButtons;
+window.hideEditDeleteButtons = function() {
+  const adminPanel = document.getElementById('hiddenAdminPanel');
+  if (adminPanel) {
+    adminPanel.style.opacity = '0';
+    adminPanel.style.pointerEvents = 'none';
+  }
+  originalHideButtons();
+}
