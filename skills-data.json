@@ -1,0 +1,20 @@
+{
+  "skills": [
+    {
+      "id": 1,
+      "title": "SQL JOIN - Basic Syntax",
+      "category": "sql",
+      "code": "SELECT a.*, b.column_name FROM table_a a\nINNER JOIN table_b b ON a.id = b.a_id\nWHERE a.date > '2024-01-01'\nORDER BY a.created_at DESC",
+      "description": "Learn how to perform INNER JOINs to combine data from multiple tables efficiently. This example joins two tables and filters by date.",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "title": "SQL GROUP BY & AGGREGATE",
+      "category": "sql",
+      "code": "SELECT\n  category,\n  COUNT(*) as total_count,\n  AVG(amount) as average_amount,\n  MAX(amount) as max_amount\nFROM sales\nGROUP BY category\nHAVING COUNT(*) > 10\nORDER BY total_count DESC",
+      "description": "Master GROUP BY clauses with aggregate functions to summarize data by categories.",
+      "image": ""
+    }
+  ]
+}
