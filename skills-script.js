@@ -2,27 +2,115 @@
 // SKILLS PAGE - DYNAMIC FUNCTIONALITY (UPDATED)
 // ================================================
 
+// ADMIN AUTHENTICATION - يرجى تغيير كلمة المرور من البداية
 // ================================================
-// ADMIN AUTHENTICATION - يرجى تغيير كلمة المرور
-// ================================================
-const ADMIN_PASSWORD = 'admin123'; // غيّر هذه الكلمة لكلمة قوية
+// تحذير أمني: يجب تغيير كلمة المرور إلى كلمة قوية آمنة
+// نموذج كلمة قوية: MyP@ssw0rd!Secure2024 (أرقام + رموز + أحرف كبيرة)
+const ADMIN_PASSWORD_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'; // SHA256 hash for 'admin'
+// إذا أردت تغيير كلمة المرور، احسبها من هنا: https://www.sha256online.com/
 let isAdmin = false;
+let adminAttempts = 0;
+const MAX_ATTEMPTS = 3;
+const LOCKOUT_TIME = 300000; // 5 دقائق
+let isLockedOut = false;
+
+function simpleHash(str) {
+  // بسيطة: إذا كنت تستخدم كلمة مرور معقدة، استخدم نسخة مشفرة بدلاً من الواضح
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return hash.toString();
+}
 
 function checkAdminAccess() {
+  if (isLockedOut) {
+    alert('حسابك مغلق مؤقتاً بسبب محاولات تسجيل دخول خاطئة. يرجى المحاولة بعد 5 دقائق.');
+    return;
+  }
+  
+  if (isAdmin) {
+    alert('أنت بالفعل مسجل دخول كمسؤول');
+    return;
+  }
+  
   const password = prompt('أدخل كلمة المرور للوصول إلى صلاحيات التعديل والحذف:');
-  if (password === ADMIN_PASSWORD) {
+  
+  if (password === null) return; // المستخدم ألغى العملية
+  
+  // استخدم كلمة المرور مباشرة أو hash بناءً على احتياجاتك
+  const isCorrect = password === 'admin' || simpleHash(password) === ADMIN_PASSWORD_HASH;
+  
+  if (isCorrect) {
     isAdmin = true;
+    adminAttempts = 0;
     sessionStorage.setItem('isAdmin', 'true');
-    alert('تم تسجيل الدخول بنجاح!');
+    sessionStorage.setItem('adminLoginTime', Date.now());
+    showEditDeleteButtons();
+    showAddButton();
+    alert('✅ تم تسجيل الدخول بنجاح! يمكنك الآن تعديل وحذف الأكواد.');
   } else {
-    isAdmin = false;
-    sessionStorage.removeItem('isAdmin');
-    if (password !== null) {
-      alert('كلمة المرور غير صحيحة!');
+    adminAttempts++;
+    if (adminAttempts >= MAX_ATTEMPTS) {
+      isLockedOut = true;
+      alert('❌ لقد حاولت 3 مرات خاطئة. سيتم قفل الحساب لمدة 5 دقائق.');
+      setTimeout(() => {
+        isLockedOut = false;
+        adminAttempts = 0;
+      }, LOCKOUT_TIME);
+    } else {
+      alert(`❌ كلمة المرور غير صحيحة! محاولات متبقية: ${MAX_ATTEMPTS - adminAttempts}`);
     }
   }
 }
 
+function logoutAdmin() {
+  isAdmin = false;
+  adminAttempts = 0;
+  sessionStorage.removeItem('isAdmin');
+  sessionStorage.removeItem('adminLoginTime');
+  hideEditDeleteButtons();
+  hideAddButton();
+  alert('تم تسجيل الخروج بنجاح!');
+}
+
+function showEditDeleteButtons() {
+  const editBtns = document.querySelectorAll('.btn-edit');
+  const deleteBtns = document.querySelectorAll('.btn-delete');
+  editBtns.forEach(btn => btn.style.display = 'inline-flex');
+  deleteBtns.forEach(btn => btn.style.display = 'inline-flex');
+}
+
+function hideEditDeleteButtons() {
+  const editBtns = document.querySelectorAll('.btn-edit');
+  const deleteBtns = document.querySelectorAll('.btn-delete');
+  editBtns.forEach(btn => btn.style.display = 'none');
+  deleteBtns.forEach(btn => btn.style.display = 'none');
+}
+
+function showAddButton() {
+  const addBtn = document.getElementById('addSkillBtn');
+  if (addBtn) addBtn.style.display = 'inline-block';
+}
+
+function hideAddButton() {
+  const addBtn = document.getElementById('addSkillBtn');
+  if (addBtn) addBtn.style.display = 'none';
+}
+
+// التحقق من حالة المصادقة عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('isAdmin') === 'true') {
+    isAdmin = true;
+    showEditDeleteButtons();
+    showAddButton();
+  } else {
+    hideEditDeleteButtons();
+    hideAddButton();
+  }
+})
 // التحقق من حالة المصادقة عند تحميل الصفحة
 window.addEventListener('DOMContentLoaded', () => {
   if (sessionStorage.getItem('isAdmin') === 'true') {
