@@ -475,3 +475,39 @@
   border-color: var(--primary);
   color: #22d3ee;
 }
+
+
+/* ================================================ */
+/* SECURITY: Hide Edit/Delete Buttons by Default */
+/* ================================================ */
+.btn-edit,
+.btn-delete {
+  display: none !important; /* Hidden by default */
+}
+
+#addSkillBtn {
+  display: none !important; /* Hidden by default for non-admins */
+}
+
+/* Admin Logout Button */
+#logoutBtn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #f17055 0%, #d93026 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#logoutBtn:hover {
+  background: linear-gradient(135deg, #d93026 0%, #c42015 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(249, 112, 85, 0.3);
+}
