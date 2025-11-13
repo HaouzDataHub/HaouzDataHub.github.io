@@ -14,6 +14,63 @@ const MAX_ATTEMPTS = 3;
 const LOCKOUT_TIME = 300000; // 5 دقائق
 let isLockedOut = false;
 
+// ================================================
+// GITHUB JSON SKILLS DATA CACHE
+// ================================================
+let cachedSkills = null;
+const GITHUB_SKILLS_URL = 'https://raw.githubusercontent.com/HaouzDataHub/HaouzDataHub.github.io/main/skills-data.json';
+
+// تحميل بيانات المهارات من GitHub بشكل غير متزامن
+async function initializeSkillsFromGitHub() {
+  try {
+    const response = await fetch(GITHUB_SKILLS_URL);
+    if (response.ok) {
+      const githubSkills = await response.json();
+      const userSkills = localStorage.getItem('skillsPosts') ? JSON.parse(localStorage.getItem('skillsPosts')) : [];
+      
+      // تصفية المهارات المضافة من قبل المستخدم (غير البيانات الافتراضية)
+      const userAddedSkills = userSkills.filter(s => ![1, 2, 3].includes(s.id));
+      
+      // دمج بيانات GitHub مع مهارات المستخدم
+      cachedSkills = [...githubSkills, ...userAddedSkills];
+    } else {
+      throw new Error('فشل تحميل البيانات من GitHub');
+    }
+  } catch (error) {
+    console.warn('خطأ في تحميل بيانات GitHub، استخدام localStorage:', error);
+    // إذا فشل التحميل من GitHub، استخدم localStorage أو البيانات الافتراضية
+    cachedSkills = localStorage.getItem('skillsPosts') ? JSON.parse(localStorage.getItem('skillsPosts')) : getDefaultSkills();
+  }
+}
+
+// دالة البيانات الافتراضية
+function getDefaultSkills() {
+  return [
+    {
+      id: 1,
+      title: 'SQL JOIN - Basic Syntax',
+      category: 'SQL',
+      description: 'Learn how to perform INNER JOINs to combine data from multiple tables efficiently.',
+      code: 'SELECT a.*, b.column_name\nFROM table_a a\nINNER JOIN table_b b\nON a.id = b.id\nWHERE a.date > "2024-01-01"\nORDER BY a.created_at DESC;'
+    },
+    {
+      id: 2,
+      title: 'SQL GROUP BY & AGGREGATE',
+      category: 'SQL',
+      description: 'Master GROUP BY clauses with aggregate functions to summarize data by categories.',
+      code: 'SELECT\n  category,\n  COUNT(*) as total_count,\n  AVG(amount) as average_amount,\n  MAX(amount) as max_amount\nFROM sales\nGROUP BY category\nHAVING COUNT(*) > 10'
+    },
+    {
+      id: 3,
+      title: 'SQL Window Functions',
+      category: 'SQL',
+      description: 'Advanced SQL using window functions like ROW_NUMBER() and AVG() for complex queries.',
+      code: 'SELECT\n  id,\n  name,\n  salary,\n  ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank,\n  AVG(salary) OVER (PARTITION BY department) as dept_avg'
+    }
+  ];
+}
+
+
 function simpleHash(str) {
   // بسيطة: إذا كنت تستخدم كلمة مرور معقدة، استخدم نسخة مشفرة بدلاً من الواضح
   let hash = 0;
@@ -230,40 +287,8 @@ function deleteSkill(skillId) {
 // LOAD AND SAVE SKILLS
 // ================================================
 function loadSkills() {
-    const stored = localStorage.getItem('skillsPosts');
-  function getDefaultSkills() {
- const defaultData = [
-  {
-    id: 1,
-    title: 'SQL JOIN - Basic Syntax',
-    category: 'SQL',
-    description: 'Learn how to perform INNER JOINs to combine data from multiple tables efficiently.',
-    code: 'SELECT a.*, b.column_name\nFROM table_a a\nINNER JOIN table_b b\nON a.id = b.id\nWHERE a.date > "2024-01-01"\nORDER BY a.created_at DESC;'
-  },
-  {
-    id: 2,
-    title: 'SQL GROUP BY & AGGREGATE',
-    category: 'SQL',
-    description: 'Master GROUP BY clauses with aggregate functions to summarize data by categories.',
-    code: 'SELECT\n  category,\n  COUNT(*) as total_count,\n  AVG(amount) as average_amount,\n  MAX(amount) as max_amount\nFROM sales\nGROUP BY category\nHAVING COUNT(*) > 10'
-  },
-  {
-    id: 3,
-    title: 'SQL Window Functions',
-    category: 'SQL',
-    description: 'Advanced SQL using window functions like ROW_NUMBER() and AVG() for complex queries.',
-    code: 'SELECT\n  id,\n  name,\n  salary,\n  ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank,\n  AVG(salary) OVER (PARTITION BY department) as dept_avg'
-  }
- ];
- return defaultData;
-}
+ return cachedSkills || getDefaultSkills();
 
-     return stored ? JSON.parse(stored) : getDefaultSkills();
-}
-
-function saveSkills(skills) {
-    localStorage.setItem('skillsPosts', JSON.stringify(skills));
-}
 
 // ================================================
 // RENDER POSTS
@@ -440,7 +465,13 @@ backToTopBtn.addEventListener('click', () => {
 // INITIALIZE
 // ================================================
 document.addEventListener('DOMContentLoaded', () => {
+   // تحميل بيانات المهارات من GitHub
+  initializeSkillsFromGitHub().then(() => {
     renderPosts(currentFilter);
+  }).catch(() => {
+    // إذا فشل التحميل، استخدم البيانات المتاحة
+    renderPosts(currentFilter);
+  });ilter);
     
     // Set 'All' button as active by default
     const allBtn = document.querySelector('[data-filter="all"]');
