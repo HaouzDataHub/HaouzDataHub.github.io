@@ -1,5 +1,55 @@
 // ================================================
 // SKILLS PAGE - DYNAMIC FUNCTIONALITY (UPDATED)
+
+// ====================================================================
+// MODAL HANDLING FOR ADD/EDIT FROM ADMIN PANEL
+// ====================================================================
+
+// Parse URL parameters to detect if coming from admin panel
+const urlParams = new URLSearchParams(window.location.search);
+const action = urlParams.get('action');
+const skillId = urlParams.get('id');
+
+// Handle modal display on page load
+window.addEventListener('DOMContentLoaded', () => {
+  // Small delay to ensure page is fully loaded
+  setTimeout(() => {
+    if (action === 'add') {
+      // Show modal for adding new skill
+      openSkillModal();
+    } else if (action === 'edit' && skillId) {
+      // Pre-fill form with skill data for editing
+      const editingSkill = sessionStorage.getItem('editingSkill');
+      if (editingSkill) {
+        const skill = JSON.parse(editingSkill);
+        prefillSkillForm(skill);
+        openSkillModal();
+      }
+    }
+  }, 500);
+});
+
+// Function to pre-fill form with existing skill data
+function prefillSkillForm(skill) {
+  document.getElementById('skillTitle').value = skill.title || '';
+  document.getElementById('skillCategory').value = skill.category || '';
+  document.getElementById('skillCode').value = skill.code || '';
+  document.getElementById('skillDescription').value = skill.description || '';
+  document.getElementById('skillImage').value = skill.image || '';
+}
+
+// Function to open skill modal (if exists in skills.html)
+function openSkillModal() {
+  const modal = document.getElementById('skillModal');
+  if (modal) {
+    modal.style.display = 'flex';
+    // Focus on title input
+    const titleInput = document.getElementById('skillTitle');
+    if (titleInput) {
+      titleInput.focus();
+    }
+  }
+}
 // ================================================
 
 // ADMIN AUTHENTICATION - يرجى تغيير كلمة المرور من البداية
