@@ -92,12 +92,12 @@ function hideEditDeleteButtons() {
 
 function showAddButton() {
   const addBtn = document.getElementById('addSkillBtn');
-  if (addBtn) addBtn.style.display = 'inline-block';
+  if (addBtn) addBtn.style.cssText = 'display: inline-block !important';
 }
 
 function hideAddButton() {
   const addBtn = document.getElementById('addSkillBtn');
-  if (addBtn) addbtn.style.cssText = 'display: none !important';
+  if (addBtn) addBtn.style.cssText = 'display: none !important';
 }
 
 // التحقق من حالة المصادقة عند تحميل الصفحة
@@ -231,7 +231,34 @@ function deleteSkill(skillId) {
 // ================================================
 function loadSkills() {
     const stored = localStorage.getItem('skillsPosts');
-    return stored ? JSON.parse(stored) : [];
+  function getDefaultSkills() {
+ const defaultData = [
+  {
+    id: 1,
+    title: 'SQL JOIN - Basic Syntax',
+    category: 'SQL',
+    description: 'Learn how to perform INNER JOINs to combine data from multiple tables efficiently.',
+    code: 'SELECT a.*, b.column_name\nFROM table_a a\nINNER JOIN table_b b\nON a.id = b.id\nWHERE a.date > "2024-01-01"\nORDER BY a.created_at DESC;'
+  },
+  {
+    id: 2,
+    title: 'SQL GROUP BY & AGGREGATE',
+    category: 'SQL',
+    description: 'Master GROUP BY clauses with aggregate functions to summarize data by categories.',
+    code: 'SELECT\n  category,\n  COUNT(*) as total_count,\n  AVG(amount) as average_amount,\n  MAX(amount) as max_amount\nFROM sales\nGROUP BY category\nHAVING COUNT(*) > 10'
+  },
+  {
+    id: 3,
+    title: 'SQL Window Functions',
+    category: 'SQL',
+    description: 'Advanced SQL using window functions like ROW_NUMBER() and AVG() for complex queries.',
+    code: 'SELECT\n  id,\n  name,\n  salary,\n  ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank,\n  AVG(salary) OVER (PARTITION BY department) as dept_avg'
+  }
+ ];
+ return defaultData;
+}
+
+     return stored ? JSON.parse(stored) : getDefaultSkills();
 }
 
 function saveSkills(skills) {
@@ -401,7 +428,7 @@ window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
         backToTopBtn.style.display = 'flex';
     } else {
-        backToTopbtn.style.cssText = 'display: none !important';
+        backToTopBtn.style.cssText = 'display: none !important';
     }
 });
 
