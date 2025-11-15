@@ -1,7 +1,7 @@
 // Improved Skills Display Script
 // Uses both skills-data.js (local) and skills-data.json (GitHub)
 
-let skillsData = [];
+// skillsData will be populated from skills-data.js
 let isAdmin = false;
 
 // Load data when DOM is ready
