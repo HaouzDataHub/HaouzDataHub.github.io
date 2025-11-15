@@ -1,6 +1,6 @@
 // Skills Data - Example posts for SQL, Python, R, Tableau, Excel
 
-const skillsData = [
+var skillsData = [
     {
         id: 1,
         title: 'SQL JOIN - Basic Syntax',
