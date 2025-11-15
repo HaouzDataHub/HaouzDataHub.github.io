@@ -627,3 +627,11 @@ button:active {
 .comment p { margin: 8px 0 12px; color: #ccc; }
 .comment button { padding: 6px 12px; background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s ease; }
 .comment button:hover { background: rgba(239,68,68,0.4); }
+
+
+/* Fixed: Equal Height Cards - Important Fix */
+.skill-card { display: flex; flex-direction: column; height: 100%; }
+.img-wrapper { flex-shrink: 0; }
+.content { flex-grow: 1; display: flex; flex-direction: column; }
+.content code { flex-grow: 1; }
+.btns { flex-shrink: 0; margin-top: auto; }
