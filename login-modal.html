@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="نموذج تسجيل دخول احترافي للأدمن" />
+    <title>🔐 تسجيل الدخول - HaouzDataHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #38bdf8;
+            --primary-dark: #0e7490;
+            --bg-dark: #0e1116;
+            --bg-darker: #010409;
+            --text-light: #e6eef6;
+            --muted-gray: #9fb0c2;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .login-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-header p {
+            color: var(--muted-gray);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(230, 238, 246, 0.4);
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--muted-gray);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .toggle-btn:hover {
+            color: var(--primary);
+        }
+
+        .password-toggle input {
+            padding-right: 40px;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: #0ea5e9;
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(90deg, var(--primary), #0ea5e9);
+            border: none;
+            border-radius: 10px;
+            color: #041027;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.3);
+        }
+
+        .submit-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            border: 2px solid rgba(4, 16, 39, 0.3);
+            border-top-color: #041027;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.show {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #86efac;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fcd34d;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--muted-gray);
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .login-footer a:hover {
+            color: #0ea5e9;
+            text-decoration: underline;
+        }
+
+        .attempt-counter {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--muted-gray);
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 24px;
+            }
+
+            .login-header h1 {
+                font-size: 24px;
+            }
+
+            .login-icon {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGIN MODAL CONTAINER -->
+    <div class="login-container">
+        <div class="login-card">
+            <!-- HEADER -->
+            <div class="login-header">
+                <span class="login-icon">🔐</span>
+                <h1>تسجيل الدخول</h1>
+                <p>مستودع المحلل - HaouzDataHub</p>
+            </div>
+
+            <!-- ALERTS -->
+            <div id="alertBox" class="alert">
+                <span id="alertIcon"></span>
+                <span id="alertMessage"></span>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm">
+                <!-- USERNAME INPUT -->
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="أدخل اسم المستخدم"
+                        autocomplete="username"
+                        required
+                    />
+                </div>
+
+                <!-- PASSWORD INPUT -->
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <div class="password-toggle">
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="أدخل كلمة المرور"
+                            autocomplete="current-password"
+                            required
+                        />
+                        <button
+                            type="button"
+                            class="toggle-btn"
+                            id="togglePassword"
+                            title="إظهار/إخفاء كلمة المرور"
+                        >
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <!-- REMEMBER ME & FORGOT PASSWORD -->
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe" />
+                        <span>تذكرني</span>
+                    </label>
+                    <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    تسجيل الدخول
+                </button>
+
+                <!-- ATTEMPT COUNTER -->
+                <div class="attempt-counter" id="attemptCounter"></div>
+            </form>
+
+            <!-- FOOTER -->
+            <div class="login-footer">
+                <p>
+                    هذا النظام محمي بتكنولوجيا التشفير الحديثة
+                    <br />
+                    جميع البيانات آمنة وسرية
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="auth-admin.js"></script>
+    <script>
+        /**
+         * ================================================
+         * LOGIN MODAL FUNCTIONALITY
+         * ================================================
+         */
+
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const submitBtn = document.getElementById('submitBtn');
+        const alertBox = document.getElementById('alertBox');
+        const alertIcon = document.getElementById('alertIcon');
+        const alertMessage = document.getElementById('alertMessage');
+        const attemptCounter = document.getElementById('attemptCounter');
+        const rememberMe = document.getElementById('rememberMe');
+
+        // ========== PASSWORD TOGGLE ==========
+        togglePasswordBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePasswordBtn.textContent = isPassword ? '🙈' : '👁️';
+        });
+
+        // ========== SHOW ALERT MESSAGE ==========
+        function showAlert(message, type = 'error') {
+            const iconMap = {
+                error: '❌',
+                success: '✅',
+                warning: '⚠️',
+            };
+
+            alertBox.classList.remove('alert-error', 'alert-success', 'alert-warning');
+            alertBox.classList.add(`alert-${type}`, 'show');
+            alertIcon.textContent = iconMap[type] || '📢';
+            alertMessage.textContent = message;
+
+            if (type !== 'error') {
+                setTimeout(() => {
+                    alertBox.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // ========== HIDE ALERT MESSAGE ==========
+        function hideAlert() {
+            alertBox.classList.remove('show');
+        }
+
+        // ========== UPDATE ATTEMPT COUNTER ==========
+        function updateAttemptCounter() {
+            const attempts = JSON.parse(
+                localStorage.getItem('admin_login_attempts') || '{}'
+            );
+            const username = usernameInput.value;
+            const userAttempts = attempts[username];
+
+            if (userAttempts && userAttempts.count) {
+                const remaining = 5 - userAttempts.count;
+                if (remaining > 0) {
+                    attemptCounter.textContent = `محاولات متبقية: ${
