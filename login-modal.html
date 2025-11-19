@@ -472,28 +472,30 @@
                 if (remaining > 0) {
                     attemptCounter.textContent = `محاولات متبقية: ${
                         <script src="auth-admin.js"></script>
-    <script>
-// التأكد من الربط بعد تحميل الصفحة
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  // جلب القيم من حقول اسم المستخدم وكلمة المرور
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value;
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const loginForm = document.getElementById('loginForm');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
 
-  // استعلم النظام
-  const response = AdminAuthSystem.authenticate(username, password);
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+    const response = AdminAuthSystem.authenticate(username, password);
 
-  if (response.success) {
-    // عرض رسالة نجاح ثم التوجيه
-    showAlert('تم تسجيل الدخول بنجاح!', 'success');
-    setTimeout(function() {
-      window.location.href = 'dashboard.html'; // أنشئها لاحقاً أو غيّر الوجهة حسب رغبتك
-    }, 1200);
-  } else {
-    // عرض رسالة خطأ
-    showAlert(response.message, 'error');
-  }
+    if (response.success) {
+      showAlert('تم تسجيل الدخول بنجاح!', 'success');
+      setTimeout(function() {
+        window.location.href = 'dashboard.html';
+      }, 1200);
+    } else {
+      showAlert(response.message, 'error');
+    }
+  });
 });
 </script>
+
+
 
 
