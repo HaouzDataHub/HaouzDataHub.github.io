@@ -472,4 +472,28 @@
                 if (remaining > 0) {
                     attemptCounter.textContent = `محاولات متبقية: ${
                         <script src="auth-admin.js"></script>
+    <script>
+// التأكد من الربط بعد تحميل الصفحة
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  // جلب القيم من حقول اسم المستخدم وكلمة المرور
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+
+  // استعلم النظام
+  const response = AdminAuthSystem.authenticate(username, password);
+
+  if (response.success) {
+    // عرض رسالة نجاح ثم التوجيه
+    showAlert('تم تسجيل الدخول بنجاح!', 'success');
+    setTimeout(function() {
+      window.location.href = 'dashboard.html'; // أنشئها لاحقاً أو غيّر الوجهة حسب رغبتك
+    }, 1200);
+  } else {
+    // عرض رسالة خطأ
+    showAlert(response.message, 'error');
+  }
+});
+</script>
+
 
