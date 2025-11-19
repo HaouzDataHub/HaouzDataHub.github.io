@@ -28,7 +28,7 @@ const AdminAuthSystem = (() => {
       {
         id: 'admin001',
         username: 'admin',
-        passwordHash: hashPassword('your_secure_password'), // Change this!
+        passwordHash: hashPassword('MAlika123123'), // Change this!
         role: 'ADMIN',
         twoFactorEnabled: false,
       },
