@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحات البيانات - Haouz Data</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #00bcd4;
+            --primary-dark: #0097a7;
+            --secondary: #1a1a2e;
+            --accent: #ff6b6b;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --text-light: #f5f5f5;
+            --text-dark: #1a1a2e;
+            --border: #e0e0e0;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --gradient-1: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 188, 212, 0.2);
+            padding: 30px 0;
+            margin-bottom: 50px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 0 0 20px 20px;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-btns {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .nav-btns button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-add {
+            background: var(--gradient-1);
+            color: white;
+        }
+        .btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+        }
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .admin-modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(38, 35, 63, 0.95) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            border: 1px solid rgba(0, 188, 212, 0.2);
+            animation: slideIn 0.4s ease;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 188, 212, 0.3);
+        }
+        .modal-header h2 {
+            font-size: 24px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 188, 212, 0.2);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 188, 212, 0.3);
+        }
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+        .gallery {
+            margin-top: 60px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+        .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .dashboard-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 188, 212, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 188, 212, 0.25);
+        }
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(0, 188, 212, 0.1), rgba(102, 126, 234, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--primary);
+            overflow: hidden;
+            position: relative;
+        }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-image.placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 80px;
+        }
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .card-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+        .card-actions button {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .btn-view {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-view:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-delete {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(244, 67, 54, 0.4);
+        }
+        .btn-delete:hover {
+            background: rgba(244, 67, 54, 0.3);
+            transform: translateY(-2px);
+        }
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .empty-state p {
+            margin-bottom: 30px;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(0, 188, 212, 0.1);
+            margin-top: 80px;
+        }
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .section-header h1 {
+                font-size: 32px;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                ‏📊 Haouz Data
+            </div>
+            <div class="nav-btns">
+                <button class="btn-login" onclick="openAdminModal()">Admin</button>
+                <button class="btn-add" onclick="openAddModal()">+ Add Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Modal -->
+    <div class="admin-modal" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إضافة لوحة بيانات جديدة</h2>
+                <button class="close-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>عنوان اللوحة</label>
+                    <input type="text" id="dashboardTitle" placeholder="مثال: تحليل مبيعات Q4">
+                </div>
+                <div class="form-group">
+                    <label>الوصف</label>
+                    <textarea id="dashboardDesc" placeholder="وصف بريع عن اللوحة والبيانات التي عرضها"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>رابط اللوحة</label>
+                    <input type="url" id="dashboardLink" placeholder="https://example.com/dashboard">
+                </div>
+                <div class="form-group">
+                    <label>رابط الصورة</label>
+                    <input type="url" id="dashboardImage" placeholder="https://example.com/image.png">
+                </div>
+                <button class="btn-submit" onclick="addDashboard()">عرض على الموقع</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="gallery">
+            <div class="section-header">
+                <h1>📊 لوحات البيانات</h1>
+                <p>استكشف محفظة المشاريع المتقدمة قائمة على ملفات بالبيانات والرسوم البيانية الاحترافية</p>
+            </div>
+            <div class="dashboard-grid" id="dashboardGallery">
+                <!-- Dashboards will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Haouz Data Hub - كل الحقوق محفوظة</p>
+    </footer>
+
+    <script>
+        // Local Storage API
+        const STORAGE_KEY = 'dashboards';
+
+        function getDashboards() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveDashboards(dashboards) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(dashboards));
+            renderGallery();
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+            clearForm();
+        }
+
+        function openAddModal() {
+            openAdminModal();
+        }
+
+        function clearForm() {
+            document.getElementById('dashboardTitle').value = '';
+            document.getElementById('dashboardDesc').value = '';
+            document.getElementById('dashboardLink').value = '';
+            document.getElementById('dashboardImage').value = '';
+        }
+
+        function addDashboard() {
+            const title = document.getElementById('dashboardTitle').value.trim();
+            const desc = document.getElementById('dashboardDesc').value.trim();
+            const link = document.getElementById('dashboardLink').value.trim();
+            const image = document.getElementById('dashboardImage').value.trim();
+
+            if (!title || !desc || !link) {
+                alert('املأ جميع الحقول المطلوبة');
+                return;
+            }
+
+            const dashboard = {
+                id: Date.now(),
+                title,
+                desc,
+                link,
+                image,
+                createdAt: new Date().toLocaleDateString('ar-EG')
+            };
+
+            const dashboards = getDashboards();
+            dashboards.unshift(dashboard);
+            saveDashboards(dashboards);
+            closeAdminModal();
+        }
+
+        function deleteDashboard(id) {
+            if (confirm('هل انت متأكد من حذف هذه اللوحة؟')) {
+                let dashboards = getDashboards();
+                dashboards = dashboards.filter(d => d.id !== id);
+                saveDashboards(dashboards);
+            }
+        }
+
+        function renderGallery() {
+            const dashboards = getDashboards();
+            const gallery = document.getElementById('dashboardGallery');
+
+            if (dashboards.length === 0) {
+                gallery.innerHTML = `
+                    <div style="grid-column: 1 / -1;" class="empty-state">
+                        <h3>🛋لا توجد لوحات بيانات بعد</h3>
+                        <p>ابدأ بإضافة عمليات رائعة للمتابعة!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            gallery.innerHTML = dashboards.map(dashboard => `
+                <div class="dashboard-card">
+                    <div class="card-image ${dashboard.image ? '' : 'placeholder'}">
+                        ${dashboard.image ? `<img src="${dashboard.image}" alt="${dashboard.title}" onerror="this.parentElement.innerHTML='📊';">` : '📊'}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${dashboard.title}</h3>
+                        <p class="card-description">${dashboard.desc}</p>
+                        <small style="color: rgba(255,255,255,0.5)">${dashboard.createdAt}</small>
+                        <div class="card-actions" style="margin-top: 15px;">
+                            <button class="btn-view" onclick="window.open('${dashboard.link}', '_blank')">View</button>
+                            <button class="btn-delete" onclick="deleteDashboard(${dashboard.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Close modal on outside click
+        document.getElementById('adminModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAdminModal();
+            }
+        });
+
+        // Initialize
+        renderGallery();
+    </script>
+</body>
+</html>
