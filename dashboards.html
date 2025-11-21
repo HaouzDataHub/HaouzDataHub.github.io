@@ -41,7 +41,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .nav-btns { display: flex; gap: 15px; align-items: center; }
+        .nav-btns { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
         button {
             padding: 10px 20px;
             border: none;
@@ -85,6 +85,8 @@
             width: 90%;
             border: 1px solid rgba(0, 188, 212, 0.2);
             animation: slideIn 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         @keyframes slideIn {
             from { transform: translateY(-50px); opacity: 0; }
@@ -104,14 +106,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 28px;
-            cursor: pointer;
-            padding: 0;
-        }
+        .close-btn { background: none; border: none; color: var(--primary); font-size: 28px; cursor: pointer; padding: 0; }
         .close-btn:hover { transform: rotate(90deg); }
         .form-group { margin-bottom: 20px; }
         .form-group label {
@@ -140,7 +135,6 @@
             box-shadow: 0 0 15px rgba(0, 188, 212, 0.2);
         }
         .form-group textarea { resize: vertical; min-height: 100px; }
-        .form-group input[type="file"] { padding: 8px; }
         .file-preview {
             margin-top: 10px;
             max-height: 150px;
@@ -154,10 +148,7 @@
             color: white;
             margin-top: 20px;
         }
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 188, 212, 0.3);
-        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 188, 212, 0.3); }
         .gallery { margin-top: 60px; }
         .section-header { text-align: center; margin-bottom: 50px; }
         .section-header h1 {
@@ -226,9 +217,11 @@
             display: flex;
             gap: 10px;
             margin-top: auto;
+            flex-wrap: wrap;
         }
         .card-actions button {
             flex: 1;
+            min-width: 70px;
             padding: 10px 15px;
             border-radius: 8px;
             font-size: 12px;
@@ -244,7 +237,7 @@
         }
         .btn-edit:hover, .btn-delete:hover { background: rgba(244, 67, 54, 0.3); }
         .btn-hidden { display: none !important; }
-        .empty-state { text-align: center; padding: 80px 20px; color: rgba(255, 255, 255, 0.6); }
+        .empty-state { text-align: center; padding: 80px 20px; color: rgba(255, 255, 255, 0.6); grid-column: 1 / -1; }
         .empty-state h3 { font-size: 24px; margin-bottom: 10px; }
         .copy-feedback {
             position: fixed;
@@ -286,7 +279,7 @@
             <div class="nav-btns">
                 <button class="btn-admin" onclick="openPasswordModal()">🔐 Admin</button>
                 <button class="btn-add" id="addBtn" onclick="openAddModal()" style="display:none;">+ إضافة</button>
-                <span class="admin-badge" id="adminBadge" style="display:none;">✓ مدير</span>
+                <span class="admin-badge" id="adminBadge" style="display:none;">✓ مدير النظام</span>
             </div>
         </div>
     </header>
@@ -295,14 +288,14 @@
     <div class="modal" id="passwordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>كلمة السر</h2>
+                <h2>🔐 التحقق من الدخول</h2>
                 <button class="close-btn" onclick="closePasswordModal()">×</button>
             </div>
             <div class="form-group">
                 <label>أدخل كلمة السر</label>
-                <input type="password" id="passwordInput" placeholder="كلمة السر" onkeypress="if(event.key==='Enter') verifyPassword()">
+                <input type="password" id="passwordInput" placeholder="كلمة المرور" onkeypress="if(event.key==='Enter') verifyPassword()">
             </div>
-            <button class="btn-submit" onclick="verifyPassword()">دخول</button>
+            <button class="btn-submit" onclick="verifyPassword()">دخول النظام</button>
         </div>
     </div>
 
@@ -310,21 +303,17 @@
     <div class="modal" id="adminModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modalTitle">إضافة لوحة بيانات</h2>
+                <h2 id="modalTitle">📊 إضافة لوحة بيانات</h2>
                 <button class="close-btn" onclick="closeAdminModal()">×</button>
             </div>
             <div class="form-group">
-                <label>العنوان</label>
-                <input type="text" id="dashboardTitle" placeholder="مثال: تحليل المبيعات">
+                <label>عنوان اللوحة</label>
+                <input type="text" id="dashboardTitle" placeholder="مثال: تحليل المبيعات Q4">
             </div>
             <div class="form-group">
                 <label>الوصف</label>
-                <textarea id="dashboardDesc" placeholder="وصف عن اللوحة"></textarea>
+                <textarea id="dashboardDesc" placeholder="وصف موجز عن اللوحة والبيانات المعروضة"></textarea>
             </div>
             <div class="form-group">
                 <label>رابط اللوحة</label>
-                <input type="url" id="dashboardLink" placeholder="https://example.com/dashboard">
-            </div>
-            <div class="form-group">
-                <label>الصورة - تحميل من الجهاز أو رابط</label>
-                <input type="file" id="imageFile" accept="
+                <input type="url" id="dashboardLink
