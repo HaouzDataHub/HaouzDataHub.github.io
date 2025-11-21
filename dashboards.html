@@ -242,7 +242,7 @@
         .copy-feedback {
             position: fixed;
             bottom: 20px;
-            left: 20px;
+            right: 20px;
             background: #4caf50;
             color: white;
             padding: 15px 25px;
@@ -280,6 +280,7 @@
                 <button class="btn-admin" onclick="openPasswordModal()">🔐 Admin</button>
                 <button class="btn-add" id="addBtn" onclick="openAddModal()" style="display:none;">+ إضافة</button>
                 <span class="admin-badge" id="adminBadge" style="display:none;">✓ مدير النظام</span>
+                <button class="btn-admin" id="logoutBtn" onclick="logout()" style="display:none;">تسجيل خروج</button>
             </div>
         </div>
     </header>
@@ -315,5 +316,277 @@
                 <textarea id="dashboardDesc" placeholder="وصف موجز عن اللوحة والبيانات المعروضة"></textarea>
             </div>
             <div class="form-group">
+                <label>الصورة (رابط URL)</label>
+                <input type="url" id="dashboardImage" placeholder="https://example.com/image.jpg">
+            </div>
+            <div class="form-group">
+                <label>أو احمل الصورة مباشرة</label>
+                <input type="file" id="dashboardImageFile" accept="image/*" onchange="previewImage()">
+                <img id="imagePreview" class="file-preview" style="display:none;">
+            </div>
+            <div class="form-group">
                 <label>رابط اللوحة</label>
-                <input type="url" id="dashboardLink
+                <input type="url" id="dashboardLink" placeholder="https://...">
+            </div>
+            <button class="btn-submit" onclick="saveDashboard()" id="saveBtn">حفظ اللوحة</button>
+        </div>
+    </div>
+
+    <!-- Copy Feedback -->
+    <div class="copy-feedback" id="copyFeedback">
+        تم نسخ رابط اللوحة بنجاح
+    </div>
+
+    <!-- Main Gallery -->
+    <main class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h1>📊 لوحات بياناتي</h1>
+                <p>عرض وإدارة لوحات البيانات المختلفة</p>
+            </div>
+            <div class="dashboard-grid" id="dashboardGrid"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Haouz Data. رابط البيانات واللوحات</p>
+    </footer>
+
+    <script>
+        // Admin Password
+        const ADMIN_PASSWORD = 'admin123';
+        let isAdmin = false;
+        let editingId = null;
+        let dashboards = [];
+
+        // Initialize
+        function init() {
+            loadDashboards();
+            checkAdminStatus();
+            renderGallery();
+        }
+
+        // Load dashboards from localStorage
+        function loadDashboards() {
+            const saved = localStorage.getItem('dashboards');
+            dashboards = saved ? JSON.parse(saved) : [];
+        }
+
+        // Save dashboards to localStorage
+        function saveDashboardsToStorage() {
+            localStorage.setItem('dashboards', JSON.stringify(dashboards));
+        }
+
+        // Check if user is logged in
+        function checkAdminStatus() {
+            isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+            updateUIForRole();
+        }
+
+        // Update UI based on admin status
+        function updateUIForRole() {
+            const addBtn = document.getElementById('addBtn');
+            const adminBadge = document.getElementById('adminBadge');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (isAdmin) {
+                addBtn.style.display = 'block';
+                adminBadge.style.display = 'block';
+                logoutBtn.style.display = 'block';
+            } else {
+                addBtn.style.display = 'none';
+                adminBadge.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+            renderGallery();
+        }
+
+        // Open password modal
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('active');
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').focus();
+        }
+
+        // Close password modal
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('active');
+            document.getElementById('passwordInput').value = '';
+        }
+
+        // Verify password
+        function verifyPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                sessionStorage.setItem('isAdmin', 'true');
+                closePasswordModal();
+                updateUIForRole();
+                showCopyFeedback('تم تسجيل الدخول بنجاح');
+            } else {
+                alert('كلمة مرور غير صحيحة');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Logout
+        function logout() {
+            isAdmin = false;
+            sessionStorage.removeItem('isAdmin');
+            updateUIForRole();
+            showCopyFeedback('تم تسجيل الخروج');
+        }
+
+        // Open add modal
+        function openAddModal() {
+            if (!isAdmin) return;
+            editingId = null;
+            document.getElementById('modalTitle').textContent = '📊 إضافة لوحة بيانات';
+            document.getElementById('dashboardTitle').value = '';
+            document.getElementById('dashboardDesc').value = '';
+            document.getElementById('dashboardImage').value = '';
+            document.getElementById('dashboardLink').value = '';
+            document.getElementById('dashboardImageFile').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('saveBtn').textContent = 'حفظ اللوحة';
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        // Open edit modal
+        function openEditModal(id) {
+            if (!isAdmin) return;
+            const dashboard = dashboards.find(d => d.id === id);
+            if (!dashboard) return;
+            editingId = id;
+            document.getElementById('modalTitle').textContent = '📊 تعديل لوحة بيانات';
+            document.getElementById('dashboardTitle').value = dashboard.title;
+            document.getElementById('dashboardDesc').value = dashboard.description;
+            document.getElementById('dashboardImage').value = dashboard.image;
+            document.getElementById('dashboardLink').value = dashboard.link;
+            document.getElementById('saveBtn').textContent = 'تحديث اللوحة';
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        // Close admin modal
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+            editingId = null;
+        }
+
+        // Preview image
+        function previewImage() {
+            const fileInput = document.getElementById('dashboardImageFile');
+            const preview = document.getElementById('imagePreview');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        // Save dashboard
+        function saveDashboard() {
+            if (!isAdmin) return;
+            const title = document.getElementById('dashboardTitle').value.trim();
+            const description = document.getElementById('dashboardDesc').value.trim();
+            const image = document.getElementById('dashboardImage').value.trim();
+            const link = document.getElementById('dashboardLink').value.trim();
+            
+            if (!title || !description) {
+                alert('ملء جميع الحقول المطلوبة');
+                return;
+            }
+
+            let imageUrl = image;
+            const preview = document.getElementById('imagePreview');
+            if (preview.style.display === 'block' && preview.src) {
+                imageUrl = preview.src;
+            }
+
+            if (editingId) {
+                const idx = dashboards.findIndex(d => d.id === editingId);
+                if (idx !== -1) {
+                    dashboards[idx] = {id: editingId, title, description, image: imageUrl, link, date: dashboards[idx].date};
+                }
+            } else {
+                dashboards.unshift({
+                    id: Date.now(),
+                    title,
+                    description,
+                    image: imageUrl,
+                    link,
+                    date: new Date().toLocaleDateString('ar-EG')
+                });
+            }
+            saveDashboardsToStorage();
+            closeAdminModal();
+            renderGallery();
+            showCopyFeedback('تم حفظ اللوحة بنجاح');
+        }
+
+        // Delete dashboard
+        function deleteDashboard(id) {
+            if (!isAdmin || !confirm('هل أنت متأكد من رغبة حذف هذه اللوحة؟')) return;
+            dashboards = dashboards.filter(d => d.id !== id);
+            saveDashboardsToStorage();
+            renderGallery();
+            showCopyFeedback('تم حذف اللوحة');
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(link) {
+            if (!link) {
+                showCopyFeedback('لا يوجد رابط للنسخ');
+                return;
+            }
+            navigator.clipboard.writeText(link).then(() => {
+                showCopyFeedback('تم نسخ الرابط بنجاح');
+            }).catch(() => {
+                alert('فشل نسخ الرابط');
+            });
+        }
+
+        // Show copy feedback
+        function showCopyFeedback(message) {
+            const feedback = document.getElementById('copyFeedback');
+            feedback.textContent = message;
+            feedback.classList.add('show');
+            setTimeout(() => feedback.classList.remove('show'), 3000);
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const grid = document.getElementById('dashboardGrid');
+            if (dashboards.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><h3>لا توجد لوحات بيانات</h3><p>ابدأ بإضافة لوحة بيانات جديدة</p></div>';
+                return;
+            }
+            grid.innerHTML = dashboards.map(dashboard => `
+                <div class="dashboard-card">
+                    <div class="card-image${dashboard.image ? '' : ' placeholder'}">
+                        ${dashboard.image ? `<img src="${dashboard.image}" alt="${dashboard.title}">` : '📋'}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${dashboard.title}</h3>
+                        <p class="card-description">${dashboard.description}</p>
+                        <small style="color: rgba(255,255,255,0.5); margin-top: auto;">${dashboard.date || ''}</small>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-view" onclick="window.open('${dashboard.link}', '_blank')">[فتح</button>
+                        <button class="btn-copy" onclick="copyToClipboard('${dashboard.link}')">[نسخ</button>
+                        ${isAdmin ? `<button class="btn-edit" onclick="openEditModal(${dashboard.id})">[تعديل</button>` : ''}
+                        ${isAdmin ? `<button class="btn-delete" onclick="deleteDashboard(${dashboard.id})">[حذف</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
