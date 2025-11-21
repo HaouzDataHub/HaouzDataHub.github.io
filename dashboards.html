@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحات البيانات - Haouz Data</title>
+    <title>Dashboards - Haouz Data</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -33,49 +33,20 @@
             top: 0;
             z-index: 100;
         }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo { font-size: 28px; font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-btns { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
+        button { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-size: 14px; }
         .btn-admin { background: var(--primary); color: white; }
         .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3); }
+        .btn-home { background: #667eea; color: white; }
+        .btn-home:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
+        .btn-contact { background: #ff9800; color: white; }
+        .btn-contact:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3); }
         .btn-add { background: var(--gradient-1); color: white; }
         .btn-add:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3); }
-        .admin-badge {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4caf50;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
+        .admin-badge { background: rgba(76, 175, 80, 0.2); color: #4caf50; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
         .modal-content {
             background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(38, 35, 63, 0.95) 100%);
@@ -88,89 +59,26 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(0, 188, 212, 0.3);
-        }
-        .modal-header h2 {
-            font-size: 24px;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .modal-view-content { max-width: 800px; }
+        .view-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid rgba(0, 188, 212, 0.3); }
+        .modal-header h2 { font-size: 24px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .close-btn { background: none; border: none; color: var(--primary); font-size: 28px; cursor: pointer; padding: 0; }
         .close-btn:hover { transform: rotate(90deg); }
         .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid rgba(0, 188, 212, 0.3);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-            font-family: inherit;
-            font-size: 14px;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 188, 212, 0.2);
-        }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--primary); font-weight: 600; font-size: 14px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 1px solid rgba(0, 188, 212, 0.3); border-radius: 10px; background: rgba(255, 255, 255, 0.05); color: var(--text-light); font-family: inherit; font-size: 14px; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px rgba(0, 188, 212, 0.2); }
         .form-group textarea { resize: vertical; min-height: 100px; }
-        .file-preview {
-            margin-top: 10px;
-            max-height: 150px;
-            border-radius: 8px;
-            max-width: 100%;
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: var(--gradient-1);
-            color: white;
-            margin-top: 20px;
-        }
+        .file-preview { margin-top: 10px; max-height: 150px; border-radius: 8px; max-width: 100%; }
+        .btn-submit { width: 100%; padding: 14px; background: var(--gradient-1); color: white; margin-top: 20px; }
         .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 188, 212, 0.3); }
         .gallery { margin-top: 60px; }
         .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-        .section-header p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 16px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+        .section-header h1 { font-size: 42px; margin-bottom: 10px; background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .section-header p { color: rgba(255, 255, 255, 0.7); font-size: 16px; max-width: 600px; margin: 0 auto; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
         .dashboard-card {
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -181,60 +89,22 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            cursor: pointer;
         }
-        .dashboard-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(0, 188, 212, 0.25);
-        }
-        .card-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(0, 188, 212, 0.1), rgba(102, 126, 234, 0.1));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            font-size: 80px;
-        }
+        .dashboard-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 60px rgba(0, 188, 212, 0.25); }
+        .card-image { width: 100%; height: 200px; background: linear-gradient(135deg, rgba(0, 188, 212, 0.1), rgba(102, 126, 234, 0.1)); display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 80px; }
         .card-image img { width: 100%; height: 100%; object-fit: cover; }
         .card-image.placeholder { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        .card-description {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        .card-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: auto;
-            flex-wrap: wrap;
-        }
-        .card-actions button {
-            flex: 1;
-            min-width: 70px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 12px;
-        }
+        .card-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+        .card-description { color: rgba(255, 255, 255, 0.7); font-size: 14px; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        .card-actions { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
+        .card-actions button { flex: 1; min-width: 70px; padding: 10px 15px; border-radius: 8px; font-size: 12px; }
         .btn-view { background: var(--primary); color: white; }
         .btn-view:hover { background: var(--primary-dark); transform: translateY(-2px); }
         .btn-copy { background: rgba(102, 126, 234, 0.2); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.4); }
         .btn-copy:hover { background: rgba(102, 126, 234, 0.3); }
-        .btn-edit, .btn-delete {
-            background: rgba(244, 67, 54, 0.2);
-            color: var(--danger);
-            border: 1px solid rgba(244, 67, 54, 0.4);
-        }
+        .btn-edit, .btn-delete { background: rgba(244, 67, 54, 0.2); color: var(--danger); border: 1px solid rgba(244, 67, 54, 0.4); }
         .btn-edit:hover, .btn-delete:hover { background: rgba(244, 67, 54, 0.3); }
         .btn-hidden { display: none !important; }
         .empty-state { text-align: center; padding: 80px 20px; color: rgba(255, 255, 255, 0.6); grid-column: 1 / -1; }
@@ -252,17 +122,8 @@
             animation: slideUp 0.3s ease;
         }
         .copy-feedback.show { display: block; }
-        @keyframes slideUp {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.5);
-            border-top: 1px solid rgba(0, 188, 212, 0.1);
-            margin-top: 80px;
-        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        footer { text-align: center; padding: 40px 20px; color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(0, 188, 212, 0.1); margin-top: 80px; }
         @media (max-width: 768px) {
             header .container { flex-direction: column; gap: 20px; }
             .section-header h1 { font-size: 32px; }
@@ -277,26 +138,57 @@
         <div class="container">
             <div class="logo">📊 Haouz Data</div>
             <div class="nav-btns">
+                <button class="btn-home" onclick="goHome()">🏠 Home</button>
                 <button class="btn-admin" onclick="openPasswordModal()">🔐 Admin</button>
-                <button class="btn-add" id="addBtn" onclick="openAddModal()" style="display:none;">+ إضافة</button>
-                <span class="admin-badge" id="adminBadge" style="display:none;">✓ مدير النظام</span>
-                <button class="btn-admin" id="logoutBtn" onclick="logout()" style="display:none;">تسجيل خروج</button>
+                <button class="btn-contact" onclick="openContact()">📧 Contact</button>
+                <button class="btn-add" id="addBtn" onclick="openAddModal()" style="display:none;">+ Add</button>
+                <span class="admin-badge" id="adminBadge" style="display:none;">✓ Admin</span>
+                <button class="btn-admin" id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
             </div>
         </div>
     </header>
-
     <!-- Password Modal -->
     <div class="modal" id="passwordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>🔐 التحقق من الدخول</h2>
+                <h2>🔐 Authentication</h2>
                 <button class="close-btn" onclick="closePasswordModal()">×</button>
             </div>
             <div class="form-group">
-                <label>أدخل كلمة السر</label>
-                <input type="password" id="passwordInput" placeholder="كلمة المرور" onkeypress="if(event.key==='Enter') verifyPassword()">
+                <label>Enter Password</label>
+                <input type="password" id="passwordInput" placeholder="Enter admin password" onkeypress="if(event.key==='Enter') verifyPassword()">
             </div>
-            <button class="btn-submit" onclick="verifyPassword()">دخول النظام</button>
+            <button class="btn-submit" onclick="verifyPassword()">Login</button>
+        </div>
+    </div>
+
+    <!-- View Modal -->
+    <div class="modal" id="viewModal">
+        <div class="modal-content modal-view-content">
+            <div class="modal-header">
+                <h2 id="viewTitle">Dashboard Details</h2>
+                <button class="close-btn" onclick="closeViewModal()">×</button>
+            </div>
+            <img id="viewImage" class="view-image" src="" alt="Dashboard">
+            <div class="form-group">
+                <label>Title</label>
+                <p style="padding:12px 15px; background:rgba(255,255,255,0.05); border-radius:10px; color:#f5f5f5;" id="viewTitleText"></p>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <p style="padding:12px 15px; background:rgba(255,255,255,0.05); border-radius:10px; color:#f5f5f5; line-height:1.6;" id="viewDescText"></p>
+            </div>
+            <div class="form-group">
+                <label>Date Created</label>
+                <p style="padding:12px 15px; background:rgba(255,255,255,0.05); border-radius:10px; color:#f5f5f5;" id="viewDateText"></p>
+            </div>
+            <div class="card-actions" style="margin-top:30px;">
+                <button class="btn-view" onclick="openDashboardLink()" id="viewOpenBtn">🔗 Open Dashboard</button>
+                <button class="btn-edit" id="viewEditBtn" onclick="editFromView()" style="display:none;">✏️ Edit</button>
+                <button class="btn-delete" id="viewDeleteBtn" onclick="deleteFromView()" style="display:none;">🗑️ Delete</button>
+                <button class="btn-copy" onclick="copyFromView()">📋 Copy Link</button>
+            </div>
+            <button class="btn-submit" style="background:#667eea; margin-top:20px;" onclick="closeViewModal()">Back</button>
         </div>
     </div>
 
@@ -304,45 +196,43 @@
     <div class="modal" id="adminModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modalTitle">📊 إضافة لوحة بيانات</h2>
+                <h2 id="modalTitle">📊 Add Dashboard</h2>
                 <button class="close-btn" onclick="closeAdminModal()">×</button>
             </div>
             <div class="form-group">
-                <label>عنوان اللوحة</label>
-                <input type="text" id="dashboardTitle" placeholder="مثال: تحليل المبيعات Q4">
+                <label>Dashboard Title</label>
+                <input type="text" id="dashboardTitle" placeholder="e.g., Q4 Sales Analysis">
             </div>
             <div class="form-group">
-                <label>الوصف</label>
-                <textarea id="dashboardDesc" placeholder="وصف موجز عن اللوحة والبيانات المعروضة"></textarea>
+                <label>Description</label>
+                <textarea id="dashboardDesc" placeholder="Provide a brief description of the dashboard"></textarea>
             </div>
             <div class="form-group">
-                <label>الصورة (رابط URL)</label>
+                <label>Image URL</label>
                 <input type="url" id="dashboardImage" placeholder="https://example.com/image.jpg">
             </div>
             <div class="form-group">
-                <label>أو احمل الصورة مباشرة</label>
+                <label>Or Upload Image</label>
                 <input type="file" id="dashboardImageFile" accept="image/*" onchange="previewImage()">
                 <img id="imagePreview" class="file-preview" style="display:none;">
             </div>
             <div class="form-group">
-                <label>رابط اللوحة</label>
+                <label>Dashboard Link</label>
                 <input type="url" id="dashboardLink" placeholder="https://...">
             </div>
-            <button class="btn-submit" onclick="saveDashboard()" id="saveBtn">حفظ اللوحة</button>
+            <button class="btn-submit" onclick="saveDashboard()" id="saveBtn">Save Dashboard</button>
         </div>
     </div>
 
     <!-- Copy Feedback -->
-    <div class="copy-feedback" id="copyFeedback">
-        تم نسخ رابط اللوحة بنجاح
-    </div>
+    <div class="copy-feedback" id="copyFeedback">✓ Link copied successfully!</div>
 
-    <!-- Main Gallery -->
+    <!-- Main Content -->
     <main class="gallery">
         <div class="container">
             <div class="section-header">
-                <h1>📊 لوحات بياناتي</h1>
-                <p>عرض وإدارة لوحات البيانات المختلفة</p>
+                <h1>📊 My Dashboards</h1>
+                <p>Manage and view your business intelligence dashboards</p>
             </div>
             <div class="dashboard-grid" id="dashboardGrid"></div>
         </div>
@@ -350,46 +240,40 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Haouz Data. رابط البيانات واللوحات</p>
+        <p>&copy; 2024 Haouz Data. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // Admin Password
         const ADMIN_PASSWORD = 'admin123';
         let isAdmin = false;
         let editingId = null;
+        let viewingId = null;
         let dashboards = [];
 
-        // Initialize
         function init() {
             loadDashboards();
             checkAdminStatus();
             renderGallery();
         }
 
-        // Load dashboards from localStorage
         function loadDashboards() {
             const saved = localStorage.getItem('dashboards');
             dashboards = saved ? JSON.parse(saved) : [];
         }
 
-        // Save dashboards to localStorage
         function saveDashboardsToStorage() {
             localStorage.setItem('dashboards', JSON.stringify(dashboards));
         }
 
-        // Check if user is logged in
         function checkAdminStatus() {
             isAdmin = sessionStorage.getItem('isAdmin') === 'true';
             updateUIForRole();
         }
 
-        // Update UI based on admin status
         function updateUIForRole() {
             const addBtn = document.getElementById('addBtn');
             const adminBadge = document.getElementById('adminBadge');
             const logoutBtn = document.getElementById('logoutBtn');
-
             if (isAdmin) {
                 addBtn.style.display = 'block';
                 adminBadge.style.display = 'block';
@@ -402,20 +286,17 @@
             renderGallery();
         }
 
-        // Open password modal
         function openPasswordModal() {
             document.getElementById('passwordModal').classList.add('active');
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordInput').focus();
         }
 
-        // Close password modal
         function closePasswordModal() {
             document.getElementById('passwordModal').classList.remove('active');
             document.getElementById('passwordInput').value = '';
         }
 
-        // Verify password
         function verifyPassword() {
             const password = document.getElementById('passwordInput').value;
             if (password === ADMIN_PASSWORD) {
@@ -423,58 +304,47 @@
                 sessionStorage.setItem('isAdmin', 'true');
                 closePasswordModal();
                 updateUIForRole();
-                showCopyFeedback('تم تسجيل الدخول بنجاح');
+                showCopyFeedback('Login successful!');
             } else {
-                alert('كلمة مرور غير صحيحة');
+                alert('Invalid password');
                 document.getElementById('passwordInput').value = '';
             }
         }
 
-        // Logout
         function logout() {
             isAdmin = false;
             sessionStorage.removeItem('isAdmin');
             updateUIForRole();
-            showCopyFeedback('تم تسجيل الخروج');
+            showCopyFeedback('Logged out successfully');
         }
 
-        // Open add modal
+        function goHome() {
+            window.location.href = '/';
+        }
+
+        function openContact() {
+            window.location.href = 'mailto:contact@haouzdata.com?subject=Dashboard%20Inquiry';
+        }
+
         function openAddModal() {
             if (!isAdmin) return;
             editingId = null;
-            document.getElementById('modalTitle').textContent = '📊 إضافة لوحة بيانات';
+            document.getElementById('modalTitle').textContent = '📊 Add Dashboard';
             document.getElementById('dashboardTitle').value = '';
             document.getElementById('dashboardDesc').value = '';
             document.getElementById('dashboardImage').value = '';
             document.getElementById('dashboardLink').value = '';
             document.getElementById('dashboardImageFile').value = '';
             document.getElementById('imagePreview').style.display = 'none';
-            document.getElementById('saveBtn').textContent = 'حفظ اللوحة';
+            document.getElementById('saveBtn').textContent = 'Save Dashboard';
             document.getElementById('adminModal').classList.add('active');
         }
 
-        // Open edit modal
-        function openEditModal(id) {
-            if (!isAdmin) return;
-            const dashboard = dashboards.find(d => d.id === id);
-            if (!dashboard) return;
-            editingId = id;
-            document.getElementById('modalTitle').textContent = '📊 تعديل لوحة بيانات';
-            document.getElementById('dashboardTitle').value = dashboard.title;
-            document.getElementById('dashboardDesc').value = dashboard.description;
-            document.getElementById('dashboardImage').value = dashboard.image;
-            document.getElementById('dashboardLink').value = dashboard.link;
-            document.getElementById('saveBtn').textContent = 'تحديث اللوحة';
-            document.getElementById('adminModal').classList.add('active');
-        }
-
-        // Close admin modal
         function closeAdminModal() {
             document.getElementById('adminModal').classList.remove('active');
             editingId = null;
         }
 
-        // Preview image
         function previewImage() {
             const fileInput = document.getElementById('dashboardImageFile');
             const preview = document.getElementById('imagePreview');
@@ -488,25 +358,21 @@
             }
         }
 
-        // Save dashboard
         function saveDashboard() {
             if (!isAdmin) return;
             const title = document.getElementById('dashboardTitle').value.trim();
             const description = document.getElementById('dashboardDesc').value.trim();
             const image = document.getElementById('dashboardImage').value.trim();
             const link = document.getElementById('dashboardLink').value.trim();
-            
-            if (!title || !description) {
-                alert('ملء جميع الحقول المطلوبة');
+            if (!title || !description || !link) {
+                alert('Please fill all required fields');
                 return;
             }
-
             let imageUrl = image;
             const preview = document.getElementById('imagePreview');
             if (preview.style.display === 'block' && preview.src) {
                 imageUrl = preview.src;
             }
-
             if (editingId) {
                 const idx = dashboards.findIndex(d => d.id === editingId);
                 if (idx !== -1) {
@@ -519,38 +385,85 @@
                     description,
                     image: imageUrl,
                     link,
-                    date: new Date().toLocaleDateString('ar-EG')
+                    date: new Date().toLocaleDateString('en-US')
                 });
             }
             saveDashboardsToStorage();
             closeAdminModal();
             renderGallery();
-            showCopyFeedback('تم حفظ اللوحة بنجاح');
+            showCopyFeedback('Dashboard saved successfully!');
         }
 
-        // Delete dashboard
-        function deleteDashboard(id) {
-            if (!isAdmin || !confirm('هل أنت متأكد من رغبة حذف هذه اللوحة؟')) return;
-            dashboards = dashboards.filter(d => d.id !== id);
+        function openViewModal(id) {
+            const dashboard = dashboards.find(d => d.id === id);
+            if (!dashboard) return;
+            viewingId = id;
+            document.getElementById('viewTitle').textContent = dashboard.title;
+            document.getElementById('viewTitleText').textContent = dashboard.title;
+            document.getElementById('viewDescText').textContent = dashboard.description;
+            document.getElementById('viewDateText').textContent = 'Created: ' + dashboard.date;
+            document.getElementById('viewImage').src = dashboard.image || '';
+            document.getElementById('viewOpenBtn').onclick = () => window.open(dashboard.link, '_blank');
+            if (isAdmin) {
+                document.getElementById('viewEditBtn').style.display = 'block';
+                document.getElementById('viewDeleteBtn').style.display = 'block';
+            } else {
+                document.getElementById('viewEditBtn').style.display = 'none';
+                document.getElementById('viewDeleteBtn').style.display = 'none';
+            }
+            document.getElementById('viewModal').classList.add('active');
+        }
+
+        function closeViewModal() {
+            document.getElementById('viewModal').classList.remove('active');
+            viewingId = null;
+        }
+
+        function openDashboardLink() {
+            const dashboard = dashboards.find(d => d.id === viewingId);
+            if (dashboard) window.open(dashboard.link, '_blank');
+        }
+
+        function copyFromView() {
+            const dashboard = dashboards.find(d => d.id === viewingId);
+            if (dashboard) copyToClipboard(dashboard.link);
+        }
+
+        function editFromView() {
+            const dashboard = dashboards.find(d => d.id === viewingId);
+            if (!dashboard || !isAdmin) return;
+            editingId = dashboard.id;
+            document.getElementById('modalTitle').textContent = '✏️ Edit Dashboard';
+            document.getElementById('dashboardTitle').value = dashboard.title;
+            document.getElementById('dashboardDesc').value = dashboard.description;
+            document.getElementById('dashboardImage').value = dashboard.image;
+            document.getElementById('dashboardLink').value = dashboard.link;
+            document.getElementById('saveBtn').textContent = 'Update Dashboard';
+            closeViewModal();
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        function deleteFromView() {
+            if (!isAdmin || !confirm('Are you sure you want to delete this dashboard?')) return;
+            dashboards = dashboards.filter(d => d.id !== viewingId);
             saveDashboardsToStorage();
+            closeViewModal();
             renderGallery();
-            showCopyFeedback('تم حذف اللوحة');
+            showCopyFeedback('Dashboard deleted');
         }
 
-        // Copy to clipboard
         function copyToClipboard(link) {
             if (!link) {
-                showCopyFeedback('لا يوجد رابط للنسخ');
+                showCopyFeedback('No link available');
                 return;
             }
             navigator.clipboard.writeText(link).then(() => {
-                showCopyFeedback('تم نسخ الرابط بنجاح');
+                showCopyFeedback('✓ Link copied successfully!');
             }).catch(() => {
-                alert('فشل نسخ الرابط');
+                alert('Failed to copy link');
             });
         }
 
-        // Show copy feedback
         function showCopyFeedback(message) {
             const feedback = document.getElementById('copyFeedback');
             feedback.textContent = message;
@@ -558,34 +471,32 @@
             setTimeout(() => feedback.classList.remove('show'), 3000);
         }
 
-        // Render gallery
         function renderGallery() {
             const grid = document.getElementById('dashboardGrid');
             if (dashboards.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><h3>لا توجد لوحات بيانات</h3><p>ابدأ بإضافة لوحة بيانات جديدة</p></div>';
+                grid.innerHTML = '<div class="empty-state"><h3>No dashboards yet</h3><p>Create your first dashboard to get started</p></div>';
                 return;
             }
             grid.innerHTML = dashboards.map(dashboard => `
                 <div class="dashboard-card">
-                    <div class="card-image${dashboard.image ? '' : ' placeholder'}">
+                    <div class="card-image${dashboard.image ? '' : ' placeholder'}" onclick="openViewModal(${dashboard.id})" style="cursor:pointer;">
                         ${dashboard.image ? `<img src="${dashboard.image}" alt="${dashboard.title}">` : '📋'}
                     </div>
-                    <div class="card-content">
+                    <div class="card-content" onclick="openViewModal(${dashboard.id})" style="cursor:pointer;">
                         <h3 class="card-title">${dashboard.title}</h3>
                         <p class="card-description">${dashboard.description}</p>
-                        <small style="color: rgba(255,255,255,0.5); margin-top: auto;">${dashboard.date || ''}</small>
+                        <small style="color:rgba(255,255,255,0.5); margin-top:auto;">${dashboard.date || ''}</small>
                     </div>
                     <div class="card-actions">
-                        <button class="btn-view" onclick="window.open('${dashboard.link}', '_blank')">[فتح</button>
-                        <button class="btn-copy" onclick="copyToClipboard('${dashboard.link}')">[نسخ</button>
-                        ${isAdmin ? `<button class="btn-edit" onclick="openEditModal(${dashboard.id})">[تعديل</button>` : ''}
-                        ${isAdmin ? `<button class="btn-delete" onclick="deleteDashboard(${dashboard.id})">[حذف</button>` : ''}
+                        <button class="btn-view" onclick="openViewModal(${dashboard.id})">🔍 View</button>
+                        <button class="btn-copy" onclick="copyToClipboard('${dashboard.link}')">Copy</button>
+                        ${isAdmin ? `<button class="btn-edit" onclick="openViewModal(${dashboard.id}); setTimeout(() => editFromView(), 100);">Edit</button>` : ''}
+                        ${isAdmin ? `<button class="btn-delete" onclick="openViewModal(${dashboard.id}); setTimeout(() => deleteFromView(), 100);">Delete</button>` : ''}
                     </div>
                 </div>
             `).join('');
         }
 
-        // Initialize on load
         window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
