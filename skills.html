@@ -59,10 +59,9 @@
         let skillsData = [];
 
         window.addEventListener('load', () => {
-            loadSkills();
-        });
+displaySkills();        });
 
-        function loadSkills() {
+        function displaySkills() {
             const grid = document.getElementById('postsGrid');
             
             if (typeof window.skillsData !== 'undefined' && window.skillsData.length > 0) {
