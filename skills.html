@@ -3,108 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skills - HaouzDataHub</title>
+    <title>Skills & Code Examples - Haouz Data</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles-modern.css">
     <link rel="stylesheet" href="styles-skills.css">
     <style>
-.detail-modal { display: none !important; }
-.detail-modal.show { display: flex !important; }
-</style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #00b4d8;
+            --primary-dark: #0097a7;
+            --danger: #f44336;
+            --success: #4caf50;
+            --text-light: #f5f5f5;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 188, 212, 0.2);
+            padding: 30px 0;
+        }
+
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+
+        .logo { font-size: 24px; color: var(--primary); font-weight: 700; }
+
+        .header-btns { display: flex; gap: 15px; }
+
+        .btn-header { padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+
+        .btn-home { background: var(--primary); color: white; }
+        .btn-home:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 180, 216, 0.3); }
+
+        .btn-admin { background: #ff9800; color: white; }
+        .btn-admin:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3); }
+
+        .btn-contact { background: #ff6b6b; color: white; }
+        .btn-contact:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3); }
+
+        .section-header { text-align: center; margin-bottom: 60px; }
+
+        .section-header h1 { font-size: 42px; margin-bottom: 10px; }
+
+        .section-header p { font-size: 16px; color: rgba(255, 255, 255, 0.7); }
+
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+
+        .card { background: var(--glass-bg); border-radius: 15px; overflow: hidden; transition: all 0.3s; border: 1px solid rgba(0, 188, 212, 0.2); }
+
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px rgba(0, 188, 212, 0.2); border-color: var(--primary); }
+
+        .card-image { width: 100%; height: 200px; object-fit: cover; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+        .card-image.placeholder { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.5); }
+
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .card-title { font-size: 20px; margin-bottom: 10px; color: var(--primary); }
+
+        .card-description { color: rgba(255, 255, 255, 0.7); font-size: 14px; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+
+        .card-actions { display: flex; gap: 10px; margin-top: auto; }
+
+        .btn-view { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; flex-grow: 1; transition: all 0.3s; }
+
+        .btn-view:hover { background: var(--primary-dark); }
+
+        .btn-copy { background: rgba(0, 188, 212, 0.2); color: var(--primary); border: 1px solid var(--primary); padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+
+        .btn-copy:hover { background: var(--primary); color: white; }
+
+        .btn-edit, .btn-delete { padding: 8px 15px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; transition: all 0.3s; }
+
+        .btn-edit { background: var(--primary); color: white; }
+
+        .btn-delete { background: var(--danger); color: white; }
+
+        .btn-add { background: var(--success); color: white; padding: 12px 30px; border-radius: 8px; border: none; cursor: pointer; font-size: 16px; margin-bottom: 30px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 1000; }
+
+        .modal.active { display: flex; }
+
+        .modal-content { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 20px; padding: 40px; max-width: 600px; width: 90%; border: 1px solid rgba(0, 188, 212, 0.3); }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+
+        .modal-header h2 { font-size: 28px; color: var(--primary); }
+
+        .close-btn { background: none; border: none; color: var(--text-light); font-size: 28px; cursor: pointer; }
+
+        .modal-body { margin-bottom: 30px; }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-light); }
+
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(0, 188, 212, 0.3); color: var(--text-light); border-radius: 8px; }
+
+        .modal-footer { display: flex; gap: 15px; }
+
+        .btn-save { background: var(--primary); color: white; padding: 12px 30px; border-radius: 8px; border: none; cursor: pointer; flex-grow: 1; }
+
+        .btn-cancel { background: var(--danger); color: white; padding: 12px 30px; border-radius: 8px; border: none; cursor: pointer; }
+
+        .empty-state { text-align: center; padding: 60px 20px; color: rgba(255, 255, 255, 0.5); }
+
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid rgba(0, 188, 212, 0.2); color: rgba(255, 255, 255, 0.5); margin-top: 80px; }
+
+        @media (max-width: 768px) {
+            .gallery { grid-template-columns: 1fr; }
+            .section-header h1 { font-size: 28px; }
+            .header-btns { flex-wrap: wrap; }
+        }
+    </style>
 </head>
 <body>
-    <header class="navbar glass" id="navbar">
-        <div class="logo">
-            <img src="images/profil.jpg" alt="Logo">
-            <h1>HaouzDataHub</h1>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">📊 Haouz Data</div>
+                <div class="header-btns">
+                    <button class="btn-header btn-home" onclick="goHome()">🏠 Home</button>
+                    <button class="btn-header btn-admin" onclick="openAdminPanel()">🔐 Admin</button>
+                    <button class="btn-header btn-contact" onclick="openContact()">📧 Contact</button>
+                </div>
+            </div>
         </div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="skills.html" class="active">Skills</a>
-            <a href="about.html">About</a>
-        </nav>
     </header>
 
     <main>
-        <section class="hero-skills" id="skills-hero">
-            <h1>Skills & Code Examples</h1>
-            <p>SQL • Python • R • Tableau • Excel</p>
-        </section>
-
-        <section class="skills-section">
-            <div class="container">
-                <div class="posts-grid" id="postsGrid"></div>
+        <div class="container">
+            <div class="section-header">
+                <h1>📚 My Code Examples & Skills</h1>
+                <p>Master SQL, Python, R, Tableau, and Excel with real-world examples</p>
             </div>
-        </section>
+
+            <button class="btn-add" id="addSkillBtn" style="display: none;" onclick="openAddModal()">+ Add New Skill</button>
+
+            <div class="gallery" id="skillsGallery">
+                <div class="empty-state">No skills added yet. Start by adding your first skill!</div>
+            </div>
+        </div>
     </main>
 
-    <div class="detail-modal" id="detailModal">
-        <div class="detail-content">
-            <button class="close-btn" onclick="closeDetail()">×</button>
-            <h2 id="detailTitle"></h2>
-            <img id="detailImage" src="" alt="">
-            <p id="detailCode"></p>
-            <p id="detailComment"></p>
-            <div class="detail-buttons">
-                <button onclick="copyLink()" class="btn-copy">Copy Link</button>
-                <button onclick="contactMe()" class="btn-contact">Contact</button>
-                <button onclick="closeDetail()" class="btn-back">Back</button>
-                <button onclick="goHome()" class="btn-home">Home</button>
+    <!-- View Modal -->
+    <div class="modal" id="viewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="viewTitle"></h2>
+                <button class="close-btn" onclick="closeModal('viewModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <img id="viewImage" style="width: 100%; border-radius: 10px; margin-bottom: 20px;" />
+                <p id="viewDescription" style="margin-bottom: 20px;"></p>
+                <pre id="viewCode" style="background: rgba(0, 188, 212, 0.1); padding: 15px; border-radius: 8px; overflow-x: auto;"></pre>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-save" onclick="copyCode()">📋 Copy Code</button>
+                <button class="btn-save" onclick="contactMe()">💬 Contact Me</button>
+                <button class="btn-cancel" onclick="closeModal('viewModal')">Back</button>
             </div>
         </div>
     </div>
 
-    <script src="skills-data.js"></script>
-    <script>
-        let skillsData = [];
-
-        window.addEventListener('load', () => {
-displaySkills();        });
-
-        function displaySkills() {
-            const grid = document.getElementById('postsGrid');
-            
-            if (typeof window.skillsData !== 'undefined' && window.skillsData.length > 0) {
-                grid.innerHTML = window.skillsData.map((skill, idx) => `
-                    <div class="skill-card" data-category="${skill.category}">
-                        <h3>${skill.title}</h3>
-                        <p class="category">${skill.category.toUpperCase()}</p>
-                        <button class="btn-view" onclick="viewSkill(${idx})">View</button>
+    <!-- Edit/Add Modal (Admin) -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="editTitle">Add New Skill</h2>
+                <button class="close-btn" onclick="closeModal('editModal')">×</button>
+            </div>
+            <form id="skillForm" onsubmit="saveSkill(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Skill Title *</label>
+                        <input type="text" id="skillTitle" required>
                     </div>
-                `).join('');
-            } else {
-                grid.innerHTML = '<p>No skills loaded yet.</p>';
+                    <div class="form-group">
+                        <label>Category (SQL, Python, R, Tableau, Excel) *</label>
+                        <input type="text" id="skillCategory" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea id="skillDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Code/Example *</label>
+                        <textarea id="skillCode" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="skillImage">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn-save">💾 Save Skill</button>
+                    <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Haouz Data. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let skillsData = JSON.parse(localStorage.getItem('skillsData')) || [];
+        let isAdmin = false;
+        let currentEditingId = null;
+
+        function renderSkills() {
+            const gallery = document.getElementById('skillsGallery');
+            if (skillsData.length === 0) {
+                gallery.innerHTML = '<div class="empty-state">No skills added yet. Start by adding your first skill!</div>';
+                return;
+            }
+
+            gallery.innerHTML = skillsData.map(skill => `
+                <div class="card">
+                    <div class="card-image" ${skill.image ? `style="background-image: url('${skill.image}'); background-size: cover;"` : ''}></div>
+                    <div class="card-content">
+                        <div class="card-title">${skill.title}</div>
+                        <small style="color: var(--primary);">📌 ${skill.category}</small>
+                        <p class="card-description">${skill.description}</p>
+                        <div class="card-actions">
+                            <button class="btn-view" onclick="viewSkill('${skill.id}')">🔍 View</button>
+                            ${isAdmin ? `<button class="btn-edit" onclick="editSkill('${skill.id}')">✏️ Edit</button>
+                            <button class="btn-delete" onclick="deleteSkill('${skill.id}')">🗑️ Delete</button>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewSkill(id) {
+            const skill = skillsData.find(s => s.id === id);
+            if (skill) {
+                document.getElementById('viewTitle').textContent = skill.title;
+                document.getElementById('viewDescription').textContent = skill.description;
+                document.getElementById('viewCode').textContent = skill.code;
+                document.getElementById('viewImage').src = skill.image || 'https://via.placeholder.com/600x400?text=' + skill.category;
+                document.getElementById('viewModal').classList.add('active');
             }
         }
 
-        function viewSkill(idx) {
-            if (typeof window.skillsData === 'undefined' || !window.skillsData[idx]) return;
-            
-            const skill = window.skillsData[idx];
-            document.getElementById('detailTitle').textContent = skill.title;
-            document.getElementById('detailImage').src = skill.image || 'images/default.jpg';
-            document.getElementById('detailCode').textContent = skill.code;
-            document.getElementById('detailComment').textContent = skill.comment || 'No description';
-            document.getElementById('detailModal').classList.add('show');
-        }
-
-        function closeDetail() {
-            document.getElementById('detailModal').classList.remove('show');
-        }
-
-        function copyLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url);
-            alert('Link copied!');
-        }
-
-        function contactMe() {
-            window.location.href = 'mailto:hamza@example.com';
-        }
-
-        function goHome() {
-            window.location.href = 'index.html';
-        }
-    </script>
-</body>
-</html>
+        function closeModal(modalId) {
+            document.
