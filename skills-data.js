@@ -118,3 +118,7 @@ function filterSkillsByCategory(category) {
     if (category === 'all') return skills;
     return skills.filter(skill => skill.category === category);
 }
+
+
+// Make skills data available globally
+window.skillsData = loadSkills();
