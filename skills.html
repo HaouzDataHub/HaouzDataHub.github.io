@@ -1,3 +1,8 @@
+أعتذر عن الصعوبات التقنية التي واجهتها. لسوء الحظ، هناك مشكلة في اتصال أداوات المتصفح حالياً. دعني أقدم لك الحل الكامل بشكل مباشر:
+
+إليك **الكود المحسّن الكامل لـ skills.html** الذي يعيد بناء الصفحة بنفس نجاح نظام dashboards.html:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +16,152 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="styles-modern.css" />
     <link rel="stylesheet" href="styles-skills.css" />
+    <style>
+        /* Admin Login Modal */
+        .admin-login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-login-modal.show {
+            display: flex;
+        }
+        .admin-login-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1a2a4e 100%);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #38bdf8;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+        .admin-login-box h3 { color: #38bdf8; margin-bottom: 20px; }
+        .admin-login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #38bdf8;
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+        .admin-login-box button {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        .skill-card { position: relative; }
+        .skill-card.admin-only { opacity: 0.5; pointer-events: none; }
+        .btn-view {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        /* Detail Modal */
+        .detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .detail-modal.show {
+            display: flex;
+        }
+        .detail-content {
+            background: linear-gradient(135deg, #0f172a 0%, #1a2a4e 100%);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid #38bdf8;
+            animation: slideIn 0.3s ease;
+        }
+        .detail-content img { max-width: 100%; border-radius: 10px; margin: 20px 0; }
+        .detail-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-copy, .btn-contact, .btn-back {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-copy { background: #10b981; color: white; }
+        .btn-contact { background: #f59e0b; color: white; }
+        .btn-back { background: #6b7280; color: white; }
+        .success-msg {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            animation: slideInRight 0.3s ease;
+            z-index: 10000;
+        }
+        @keyframes slideIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(500px); } to { transform: translateX(0); } }
+        .admin-controls { display: none; }
+        .admin-controls.show { display: block; }
+    </style>
 </head>
 <body>
     <!-- BACK TO TOP BUTTON -->
     <button id="backToTop" title="Back to top">⬆</button>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div class="admin-login-modal" id="adminLoginModal">
+        <div class="admin-login-box">
+            <h3>Admin Access Required</h3>
+            <input type="password" id="adminPassword" placeholder="Enter admin password" />
+            <button onclick="checkAdminPassword()">Login</button>
+        </div>
+    </div>
+
+    <!-- DETAIL MODAL -->
+    <div class="detail-modal" id="detailModal">
+        <div class="detail-content">
+            <button style="float: right; background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;" onclick="closeDetail()">×</button>
+            <h2 id="detailTitle" style="color: #38bdf8;"></h2>
+            <img id="detailImage" src="" alt="Skill" />
+            <p id="detailCode" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; overflow-x: auto;"></p>
+            <p id="detailComment" style="color: #d1d5db; margin-top: 15px;"></p>
+            <div class="detail-buttons">
+                <button class="btn-copy" onclick="copySkillLink()">Copy Link</button>
+                <button class="btn-contact" onclick="contactMe()">Contact Me</button>
+                <button class="btn-back" onclick="closeDetail()">Back</button>
+                <button class="btn-back" onclick="goHome()">Home</button>
+            </div>
+        </div>
+    </div>
 
     <!-- DATA VISUALIZATION BACKGROUND SVG -->
     <svg id="dataViz" class="data-visualization" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.1; pointer-events: none;" preserveAspectRatio="xMidYMid meet">
@@ -84,28 +231,26 @@
             </div>
         </section>
 
-        <!-- SKILLS GRID -->
-        <section class="skills-section">
+        <!-- ADMIN SECTION -->
+        <section class="admin-section admin-controls" id="adminControls">
             <div class="container">
-                <div class="posts-grid" id="postsGrid">
-                    <!-- Posts will be dynamically loaded here -->
-                </div>
+                <button class="btn-add-skill" id="addSkillBtn">+ ADD NEW SKILL POST</button>
+                <button style="background: #ef4444; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;" onclick="logoutAdmin()">Logout</button>
             </div>
         </section>
 
-        <!-- ADD SKILL MODAL -->
-        <section class="add-skill-section">
+        <!-- SKILLS GRID -->
+        <section class="skills-section">
             <div class="container">
-                <button class="btn-add-skill" id="addSkillBtn"> + ADD NEW SKILL POST
-                </button>
+                <div class="posts-grid" id="postsGrid"></div>
             </div>
         </section>
     </main>
 
-    <!-- MODAL FOR ADDING NEW SKILL -->
+    <!-- MODAL FOR ADDING NEW SKILL (Admin Only) -->
     <div class="modal" id="skillModal">
         <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
+            <button class="modal-close" id="closeModal">×</button>
             <h2>Add New Skill Post</h2>
             <form id="skillForm">
                 <div class="form-group">
@@ -128,68 +273,34 @@
                     <textarea id="skillCode" placeholder="Paste your code or example here" rows="6" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="skillDescription">Description</label>
-                    <textarea id="skillDescription" placeholder="Brief description of what this code does" rows="3"></textarea>
+                    <label for="skillComment">Comment/Description</label>
+                    <textarea id="skillComment" placeholder="Add a comment or description" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    130
-                    
+                    <label for="skillImage">Image URL</label>
                     <input type="url" id="skillImage" placeholder="https://example.com/image.jpg">
-                                    <div class="form-group">
-                    <label for="skillImageFile">Upload Image From Your Device</label>
+                </div>
+                <div class="form-group">
+                    <label for="skillImageFile">Upload Image From Device</label>
                     <input type="file" id="skillImageFile" accept="image/*">
                 </div>
-                </div>
-                <button type="submit" class="btn-primary">Add Skill Post</button>
+                <button type="submit" class="btn-submit">Add Skill Post</button>
             </form>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2025 HaouzDataHub — Built with care • Hamza Haouzmani</p>
-            <p class="muted small">Designed with Oswald & Inter fonts</p>
-        </div>
+    <footer>
+        <p>© 2025 HaouzDataHub — Built with care • Hamza Haouzmani</p>
+        <p>Designed with Oswald & Inter fonts</p>
     </footer>
 
-    <!-- SCRIPTS -->
     <script src="skills-data.js"></script>
-    <script src="skills-script.js"></script>
     <script>
-        // Hide navbar on scroll down
-        let lastScrollTop = 0;
-        const navbar = document.querySelector('.navbar');
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > lastScrollTop && currentScroll > 100) {
-                navbar.classList.add('hide');
-            } else {
-                navbar.classList.remove('hide');
-            }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-        });
-    </script>
-    <script>
-        // === PAGE LOADER ===
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => loader.classList.add('hide'), 700);
-        });
-        // === THEME TOGGLE ===
-        const toggleBtn = document.getElementById('theme-toggle');
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            toggleBtn.textContent = isLight ? '🌞' : '🌙';
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        });
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-            toggleBtn.textContent = '🌞';
+        // === ADMIN AUTHENTICATION ===
+        function showAdminLogin() {
+            document.getElementById('adminLoginModal').classList.add('show');
         }
-    </script>
-</body>
-</html>
+        
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            const correctPassword = 'hamza2
