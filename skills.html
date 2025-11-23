@@ -1,245 +1,32 @@
-أعتذر عن الصعوبات التقنية التي واجهتها. لسوء الحظ، هناك مشكلة في اتصال أداوات المتصفح حالياً. دعني أقدم لك الحل الكامل بشكل مباشر:
-
-إليك **الكود المحسّن الكامل لـ skills.html** الذي يعيد بناء الصفحة بنفس نجاح نظام dashboards.html:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Skills & Code Examples - SQL, R, Python, Tableau - Hamza Haouzmani">
-    <meta name="author" content="Hamza Haouzmani" />
-    <title>Skills & Code Examples | HaouzDataHub | Data Analyst Portfolio</title>
-    <link rel="icon" href="images/profil.jpg" />
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="styles-modern.css" />
-    <link rel="stylesheet" href="styles-skills.css" />
-    <style>
-        /* Admin Login Modal */
-        .admin-login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        .admin-login-modal.show {
-            display: flex;
-        }
-        .admin-login-box {
-            background: linear-gradient(135deg, #0f172a 0%, #1a2a4e 100%);
-            padding: 40px;
-            border-radius: 15px;
-            border: 2px solid #38bdf8;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s ease;
-        }
-        .admin-login-box h3 { color: #38bdf8; margin-bottom: 20px; }
-        .admin-login-box input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #38bdf8;
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-        .admin-login-box button {
-            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: 600;
-        }
-        .skill-card { position: relative; }
-        .skill-card.admin-only { opacity: 0.5; pointer-events: none; }
-        .btn-view {
-            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        /* Detail Modal */
-        .detail-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9998;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .detail-modal.show {
-            display: flex;
-        }
-        .detail-content {
-            background: linear-gradient(135deg, #0f172a 0%, #1a2a4e 100%);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            border: 2px solid #38bdf8;
-            animation: slideIn 0.3s ease;
-        }
-        .detail-content img { max-width: 100%; border-radius: 10px; margin: 20px 0; }
-        .detail-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        .btn-copy, .btn-contact, .btn-back {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .btn-copy { background: #10b981; color: white; }
-        .btn-contact { background: #f59e0b; color: white; }
-        .btn-back { background: #6b7280; color: white; }
-        .success-msg {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #10b981;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            animation: slideInRight 0.3s ease;
-            z-index: 10000;
-        }
-        @keyframes slideIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes slideInRight { from { transform: translateX(500px); } to { transform: translateX(0); } }
-        .admin-controls { display: none; }
-        .admin-controls.show { display: block; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills - HaouzDataHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-modern.css">
+    <link rel="stylesheet" href="styles-skills.css">
 </head>
 <body>
-    <!-- BACK TO TOP BUTTON -->
-    <button id="backToTop" title="Back to top">⬆</button>
-
-    <!-- ADMIN LOGIN MODAL -->
-    <div class="admin-login-modal" id="adminLoginModal">
-        <div class="admin-login-box">
-            <h3>Admin Access Required</h3>
-            <input type="password" id="adminPassword" placeholder="Enter admin password" />
-            <button onclick="checkAdminPassword()">Login</button>
-        </div>
-    </div>
-
-    <!-- DETAIL MODAL -->
-    <div class="detail-modal" id="detailModal">
-        <div class="detail-content">
-            <button style="float: right; background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;" onclick="closeDetail()">×</button>
-            <h2 id="detailTitle" style="color: #38bdf8;"></h2>
-            <img id="detailImage" src="" alt="Skill" />
-            <p id="detailCode" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; overflow-x: auto;"></p>
-            <p id="detailComment" style="color: #d1d5db; margin-top: 15px;"></p>
-            <div class="detail-buttons">
-                <button class="btn-copy" onclick="copySkillLink()">Copy Link</button>
-                <button class="btn-contact" onclick="contactMe()">Contact Me</button>
-                <button class="btn-back" onclick="closeDetail()">Back</button>
-                <button class="btn-back" onclick="goHome()">Home</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- DATA VISUALIZATION BACKGROUND SVG -->
-    <svg id="dataViz" class="data-visualization" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.1; pointer-events: none;" preserveAspectRatio="xMidYMid meet">
-        <defs>
-            <style>
-                .dot { fill: #38bdf8; r: 3; opacity: 0.6; }
-                .line { stroke: #38bdf8; stroke-width: 2; fill: none; opacity: 0.4; }
-                .viz-group { animation: float 20s infinite ease-in-out; }
-                @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
-            </style>
-        </defs>
-        <g class="viz-group">
-            <line class="line" x1="10%" y1="20%" x2="30%" y2="40%" />
-            <line class="line" x1="30%" y1="40%" x2="50%" y2="25%" />
-            <line class="line" x1="50%" y1="25%" x2="70%" y2="50%" />
-            <circle class="dot" cx="10%" cy="20%" />
-            <circle class="dot" cx="30%" cy="40%" />
-            <circle class="dot" cx="50%" cy="25%" />
-            <circle class="dot" cx="70%" cy="50%" />
-            <circle class="dot" cx="20%" cy="60%" />
-            <circle class="dot" cx="60%" cy="70%" />
-            <circle class="dot" cx="80%" cy="30%" />
-        </g>
-    </svg>
-
-    <!-- NAVBAR -->
     <header class="navbar glass" id="navbar">
         <div class="logo">
-            <img src="images/profil.jpg" alt="Hamza Haouzmani logo" />
+            <img src="images/profil.jpg" alt="Logo">
             <h1>HaouzDataHub</h1>
         </div>
         <nav>
-            <a href="index.html#home">Home</a>
-            <a href="index.html#projects">Projects</a>
+            <a href="index.html">Home</a>
             <a href="skills.html" class="active">Skills</a>
-            <a href="index.html#certs">Certifications</a>
-            <a href="index.html#contact">Contact</a>
             <a href="about.html">About</a>
         </nav>
     </header>
 
-    <!-- THEME TOGGLE BUTTON -->
-    <button id="theme-toggle" title="Toggle theme">🌙</button>
-
-    <!-- PAGE LOADER -->
-    <div id="loader">
-        <div class="profile-ring">
-            <img src="images/profil.jpg" alt="Loading Hamza Haouzmani">
-        </div>
-        <p>Loading Skills...</p>
-    </div>
-
     <main>
-        <!-- HERO SECTION -->
-        <section class="hero-skills" id="skills-hero" style="background: linear-gradient(135deg, #0f172a 0%, #1a2a4e 50%, #0a1628 100%); padding: 120px 20px; text-align: center; position: relative; overflow: hidden; min-height: 500px; display: flex; align-items: center; justify-content: center;">
-            <div class="hero-wrap container">
-                <h1 class="hero-title">Skills & <span class="accent">Code Examples</span></h1>
-                <p class="hero-subtitle">SQL • Python • R • Tableau • Excel</p>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="sql">SQL</button>
-                    <button class="filter-btn" data-filter="python">Python</button>
-                    <button class="filter-btn" data-filter="r">R</button>
-                    <button class="filter-btn" data-filter="tableau">Tableau</button>
-                    <button class="filter-btn" data-filter="excel">Excel</button>
-                </div>
-            </div>
+        <section class="hero-skills" id="skills-hero">
+            <h1>Skills & Code Examples</h1>
+            <p>SQL • Python • R • Tableau • Excel</p>
         </section>
 
-        <!-- ADMIN SECTION -->
-        <section class="admin-section admin-controls" id="adminControls">
-            <div class="container">
-                <button class="btn-add-skill" id="addSkillBtn">+ ADD NEW SKILL POST</button>
-                <button style="background: #ef4444; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;" onclick="logoutAdmin()">Logout</button>
-            </div>
-        </section>
-
-        <!-- SKILLS GRID -->
         <section class="skills-section">
             <div class="container">
                 <div class="posts-grid" id="postsGrid"></div>
@@ -247,60 +34,74 @@
         </section>
     </main>
 
-    <!-- MODAL FOR ADDING NEW SKILL (Admin Only) -->
-    <div class="modal" id="skillModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">×</button>
-            <h2>Add New Skill Post</h2>
-            <form id="skillForm">
-                <div class="form-group">
-                    <label for="skillTitle">Title *</label>
-                    <input type="text" id="skillTitle" placeholder="e.g., SQL JOIN Syntax" required>
-                </div>
-                <div class="form-group">
-                    <label for="skillCategory">Category *</label>
-                    <select id="skillCategory" required>
-                        <option value="">Select a category</option>
-                        <option value="sql">SQL</option>
-                        <option value="python">Python</option>
-                        <option value="r">R</option>
-                        <option value="tableau">Tableau</option>
-                        <option value="excel">Excel</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="skillCode">Code/Example *</label>
-                    <textarea id="skillCode" placeholder="Paste your code or example here" rows="6" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="skillComment">Comment/Description</label>
-                    <textarea id="skillComment" placeholder="Add a comment or description" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="skillImage">Image URL</label>
-                    <input type="url" id="skillImage" placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="form-group">
-                    <label for="skillImageFile">Upload Image From Device</label>
-                    <input type="file" id="skillImageFile" accept="image/*">
-                </div>
-                <button type="submit" class="btn-submit">Add Skill Post</button>
-            </form>
+    <div class="detail-modal" id="detailModal">
+        <div class="detail-content">
+            <button class="close-btn" onclick="closeDetail()">×</button>
+            <h2 id="detailTitle"></h2>
+            <img id="detailImage" src="" alt="">
+            <p id="detailCode"></p>
+            <p id="detailComment"></p>
+            <div class="detail-buttons">
+                <button onclick="copyLink()" class="btn-copy">Copy Link</button>
+                <button onclick="contactMe()" class="btn-contact">Contact</button>
+                <button onclick="closeDetail()" class="btn-back">Back</button>
+                <button onclick="goHome()" class="btn-home">Home</button>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <p>© 2025 HaouzDataHub — Built with care • Hamza Haouzmani</p>
-        <p>Designed with Oswald & Inter fonts</p>
-    </footer>
-
     <script src="skills-data.js"></script>
     <script>
-        // === ADMIN AUTHENTICATION ===
-        function showAdminLogin() {
-            document.getElementById('adminLoginModal').classList.add('show');
+        let skillsData = [];
+
+        window.addEventListener('load', () => {
+            loadSkills();
+        });
+
+        function loadSkills() {
+            const grid = document.getElementById('postsGrid');
+            
+            if (typeof window.skillsData !== 'undefined' && window.skillsData.length > 0) {
+                grid.innerHTML = window.skillsData.map((skill, idx) => `
+                    <div class="skill-card" data-category="${skill.category}">
+                        <h3>${skill.title}</h3>
+                        <p class="category">${skill.category.toUpperCase()}</p>
+                        <button class="btn-view" onclick="viewSkill(${idx})">View</button>
+                    </div>
+                `).join('');
+            } else {
+                grid.innerHTML = '<p>No skills loaded yet.</p>';
+            }
         }
-        
-        function checkAdminPassword() {
-            const password = document.getElementById('adminPassword').value;
-            const correctPassword = 'hamza2
+
+        function viewSkill(idx) {
+            if (typeof window.skillsData === 'undefined' || !window.skillsData[idx]) return;
+            
+            const skill = window.skillsData[idx];
+            document.getElementById('detailTitle').textContent = skill.title;
+            document.getElementById('detailImage').src = skill.image || 'images/default.jpg';
+            document.getElementById('detailCode').textContent = skill.code;
+            document.getElementById('detailComment').textContent = skill.comment || 'No description';
+            document.getElementById('detailModal').classList.add('show');
+        }
+
+        function closeDetail() {
+            document.getElementById('detailModal').classList.remove('show');
+        }
+
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url);
+            alert('Link copied!');
+        }
+
+        function contactMe() {
+            window.location.href = 'mailto:hamza@example.com';
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
