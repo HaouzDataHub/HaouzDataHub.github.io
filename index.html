@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -15,26 +16,20 @@
   <!-- BACK TO TOP BUTTON -->
   <button id="backToTop" title="Back to top">⬆</button>
   
+<!-- DATA VISUALIZATION BACKGROUND SVG -->
+<svg id="dataViz" class="data-visualization" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.1; pointer-events: none;" preserveAspectRatio="xMidYMid meet"><defs><style>.dot { fill: #38bdf8; r: 3; opacity: 0.6; } .line { stroke: #38bdf8; stroke-width: 2; fill: none; opacity: 0.4; } .viz-group { animation: float 20s infinite ease-in-out; } @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }</style></defs><g class="viz-group"><line class="line" x1="10%" y1="20%" x2="30%" y2="40%" /><line class="line" x1="30%" y1="40%" x2="50%" y2="25%" /><line class="line" x1="50%" y1="25%" x2="70%" y2="50%" /><circle class="dot" cx="10%" cy="20%" /><circle class="dot" cx="30%" cy="40%" /><circle class="dot" cx="50%" cy="25%" /><circle class="dot" cx="70%" cy="50%" /><circle class="dot" cx="20%" cy="60%" /><circle class="dot" cx="60%" cy="70%" /><circle class="dot" cx="80%" cy="30%" /></g></svg>
+
+  
 <!-- NAVBAR -->
 <header class="navbar glass" id="navbar">
   <div class="logo">
     <img src="images/profil.jpg" alt="Hamza Haouzmani logo" />
     <h1>HaouzDataHub</h1>
   </div>
-    <!-- Hamburger Menu -->
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <!-- Theme Toggle -->
-  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-    <span id="theme-icon">☀️</span>
-  </button>
-  <nav class="nav-menu">
+  <nav>
     <a href="#home" class="active">Home</a>
     <a href="#projects">Projects</a>
-                   <a href="skills.html" class📋> Skills</a>
+                   <a href="skills.html" class="">📊 Skills</a>
     <a href="#certs">Certifications</a>
     <a href="#contact">Contact</a>
     <a href="about.html">About</a>
@@ -42,12 +37,10 @@
        class="admin-login-link"
        title="دخول الإدارة"
        style="margin-left:10px; color:#38bdf8; font-weight:bold; font-size:15px;">
-Admin    </a>
+       🔐 الأدمن
+    </a>
   </nav>
 </header>
-  
-<!-- Breadcrumbs Navigation -->
-<nav class="breadcrumbs" aria-label="Breadcrumb"></nav>
 
 
 <!-- THEME TOGGLE BUTTON -->
@@ -97,9 +90,11 @@ Admin    </a>
 
         <!-- Compact contact icons -->
         <div class="contact-icons">
-<a href="mailto:hamza@haouzmanianalytics.com" title="Email"><img src="icons/email.png" alt="Email" style="width: 24px; height: 24px;"></a>
-     <a href="tel:+213550714859" title="Phone"><img src="icons/phone.png" alt="Phone" style="width: 24px; height: 24px;"></a>
-     <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank" title="LinkedIn"><img src="icons/linkedin.png" alt="LinkedIn" style="width: 24px; height: 24px;"></a>      </div>
+          <a href="mailto:hamza@haouzmanianalytics.com" title="Email"><img src="icons/email.png" alt="Email icon"></a>
+          <a href="tel:+213550714859" title="Phone"><img src="icons/phone.png" alt="Phone icon"></a>
+          <a href="https://www.linkedin.com/in/hamza-haouzmani" target="_blank" title="LinkedIn"><img src="icons/linkedin.png" alt="LinkedIn icon"></a>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -263,7 +258,6 @@ Admin    </a>
     toggleBtn.textContent = '🌞';
   }
 </script>
-  <script src="enhancements.js"></script>
 
 
 </body>
