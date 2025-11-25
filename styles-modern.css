@@ -5,14 +5,14 @@
 
 :root {
   /* Color Palette - Minimal & Professional */
-  --primary: ##3B82F6;
-  --primary-dark: ##1E293B;
+  --primary: #38bdf8;
+  --primary-dark: #0284c7;
   --bg-dark: #0f172a;
   --bg-darker: #020617;
   --text-light: #e2e8f0;
   --text-muted: #94a3b8;
   --border-color: rgba(255, 255, 255, 0.08);
-  --accent-gradient: linear-gradient(135deg, ##3B82F6   , ##10B981);
+  --accent-gradient: linear-gradient(135deg, #38bdf8, #0284c7);
   
   /* Spacing System */
   --space-xs: 0.25rem;
