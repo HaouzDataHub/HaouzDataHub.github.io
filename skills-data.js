@@ -241,3 +241,7 @@ console.log('- skillsManager.exportAsJSON()');
 console.log('- skillsManager.resetToDefaults()');
 console.log('- skillsManager.getStats()');
 console.log('Stats:', skillsManager.getStats());
+
+
+// Expose defaultSkillsData to global scope for backward compatibility
+window.defaultSkillsData = defaultSkillsData;
