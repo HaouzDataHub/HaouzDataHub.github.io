@@ -31,15 +31,15 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ================================================
-// DOM ELEMENT REFERENCES
+// DOM ELEMENT REFERENCES - FIXED IDs
 // ================================================
-const skillsContainer = document.getElementById('skillsContainer');
+const postsGrid = document.getElementById('postsGrid');
 const skillForm = document.getElementById('skillForm');
 const addSkillBtn = document.getElementById('addSkillBtn');
 const skillModal = document.getElementById('skillModal');
-const closeModalBtn = document.getElementById('closeModalBtn');
+const closeModalBtn = document.getElementById('closeModal');
 const filterButtons = document.querySelectorAll('[data-filter]');
-const backToTopBtn = document.getElementById('backToTopBtn');
+const backToTopBtn = document.getElementById('backToTop');
 
 // ================================================
 // GLOBAL STATE
@@ -55,6 +55,7 @@ function loadSkills() {
   // Try to use skillsManager if available
   if (typeof skillsManager !== 'undefined' && skillsManager) {
     skillsData = skillsManager.getAllSkills();
+    console.log('Loaded skills from skillsManager:', skillsData.length);
     return skillsData;
   }
   
@@ -63,6 +64,7 @@ function loadSkills() {
   if (stored) {
     try {
       skillsData = JSON.parse(stored);
+      console.log('Loaded skills from localStorage:', skillsData.length);
       return skillsData;
     } catch (e) {
       console.error('Error parsing skills data from localStorage:', e);
@@ -73,11 +75,13 @@ function loadSkills() {
   // If nothing found, check for default skills in window
   if (typeof defaultSkillsData !== 'undefined' && Array.isArray(defaultSkillsData)) {
     skillsData = defaultSkillsData.map(skill => ({ ...skill }));
+    console.log('Loaded default skills:', skillsData.length);
     // Save defaults to localStorage
     localStorage.setItem('haouzDataHub_skills_v2', JSON.stringify(skillsData));
     return skillsData;
   }
   
+  console.warn('No skills data found anywhere!');
   return [];
 }
 
@@ -98,27 +102,32 @@ function saveSkills() {
 function renderPosts(filter = 'all') {
   currentFilter = filter;
   
-  if (!skillsContainer) return;
+  if (!postsGrid) {
+    console.error('postsGrid container not found!');
+    return;
+  }
   
   // Ensure we have skills data
   if (!skillsData || skillsData.length === 0) {
     skillsData = loadSkills();
   }
   
-  skillsContainer.innerHTML = '';
+  postsGrid.innerHTML = '';
   
   let filteredSkills = filter === 'all' 
     ? skillsData 
     : skillsData.filter(skill => skill.category === filter);
   
+  console.log('Rendering', filteredSkills.length, 'skills for filter:', filter);
+  
   if (filteredSkills.length === 0) {
-    skillsContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">No skills found in this category</p>';
+    postsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">No skills found in this category</p>';
     return;
   }
   
   filteredSkills.forEach(skill => {
     const skillCard = createSkillCard(skill);
-    skillsContainer.appendChild(skillCard);
+    postsGrid.appendChild(skillCard);
   });
 }
 
@@ -133,10 +142,10 @@ function createSkillCard(skill) {
   let cardContent = `
     <div class="skill-card-inner">
       <div class="skill-image">
-        <img src="${skill.image || 'images/skill-placeholder.png'}" alt="${skill.title}">
+        <img src="${skill.image || 'images/skill-placeholder.png'}" alt="${skill.title}" onerror="this.src='images/skill-placeholder.png'">
       </div>
       <h3>${skill.title}</h3>
-      <p class="skill-description">${skill.description || ''}</p>
+      <p class="skill-description">${skill.description || skill.code || ''}</p>
       <div class="skill-category"><span class="badge">${skill.category}</span></div>
   `;
   
@@ -167,7 +176,13 @@ function editSkill(id) {
   editingId = id;
   document.getElementById('skillTitle').value = skill.title;
   document.getElementById('skillCategory').value = skill.category;
-  document.getElementById('skillDescription').value = skill.description || '';
+  
+  // Handle both code and description fields
+  const codeField = document.getElementById('skillCode');
+  const descField = document.getElementById('skillDescription');
+  
+  if (codeField) codeField.value = skill.code || '';
+  if (descField) descField.value = skill.description || '';
   
   skillModal.style.display = 'flex';
   document.getElementById('skillTitle').focus();
@@ -193,8 +208,9 @@ if (skillForm) {
     
     const title = document.getElementById('skillTitle').value.trim();
     const category = document.getElementById('skillCategory').value;
-    const description = document.getElementById('skillDescription').value.trim();
-    const imageFile = document.getElementById('skillImageFile').files[0];
+    const code = document.getElementById('skillCode')?.value.trim() || '';
+    const description = document.getElementById('skillDescription')?.value.trim() || '';
+    const imageFile = document.getElementById('skillImageFile')?.files[0];
     
     if (!title) {
       alert('Please enter a skill title');
@@ -207,6 +223,7 @@ if (skillForm) {
       if (skill) {
         skill.title = title;
         skill.category = category;
+        skill.code = code;
         skill.description = description;
         if (imageFile) {
           const reader = new FileReader();
@@ -227,6 +244,7 @@ if (skillForm) {
         id: 'skill_' + Date.now(),
         title,
         category,
+        code,
         description,
         image: 'images/skill-placeholder.png'
       };
@@ -270,8 +288,9 @@ filterButtons.forEach(btn => {
 if (addSkillBtn) {
   addSkillBtn.addEventListener('click', () => {
     editingId = null;
-    skillForm.reset();
-    document.getElementById('skillImageFile').value = '';
+    if (skillForm) skillForm.reset();
+    const fileInput = document.getElementById('skillImageFile');
+    if (fileInput) fileInput.value = '';
     skillModal.style.display = 'flex';
     document.getElementById('skillTitle').focus();
   });
@@ -312,10 +331,15 @@ if (backToTopBtn) {
 // INITIALIZE ON PAGE LOAD
 // ================================================
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM Content Loaded - Initializing skills');
+  
   // Wait for skillsManager to load if it exists
   setTimeout(() => {
+    console.log('Calling loadSkills...');
+    
     // Load skills data
     skillsData = loadSkills();
+    console.log('Skills data loaded, count:', skillsData.length);
     
     // Render initial view
     renderPosts(currentFilter);
@@ -323,10 +347,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set 'All' button as active
     const allBtn = document.querySelector('[data-filter="all"]');
     if (allBtn) allBtn.classList.add('active');
+    
+    console.log('Skills initialization complete');
   }, 100);
 });
 
 // Console feedback
 console.log('skills-script.js loaded successfully');
 console.log('Using skillsManager:', typeof skillsManager !== 'undefined' ? 'YES' : 'NO');
-console.log('Initial skills loaded:', skillsData.length);
+console.log('Default skills available:', typeof defaultSkillsData !== 'undefined' ? 'YES' : 'NO');
