@@ -833,70 +833,51 @@ margin: 0 auto;
 }
 
 /* ============================================
-
 My Story / About Me Section
-
 ============================================ */
 
 .my-story {
-
-padding: var(--spacing-3xl) 0;
-
-background: var(--bg-secondary);
-
+  padding: var(--spacing-3xl) 0;
+  background: var(--bg-secondary);
 }
 
 .story-container {
-
-max-width: 1200px;
-
-margin: 0 auto;
-
-padding: 0 var(--spacing-lg);
-
-display: grid;
-
-grid-template-columns: 0.9fr 1.1fr;
-
-gap: var(--spacing-2xl);
-
-align-items: flex-start;
-
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-rows: auto auto;   /* سطر جديد */
+  gap: var(--spacing-2xl);
+  align-items: flex-start;
 }
 
 .section-header-story {
-
-grid-column: 1 / -1;
-
-text-align: center;
-
-margin-bottom: var(--spacing-2xl);
-
+  grid-column: 1 / -1;
+  grid-row: 1;                     /* سطر جديد */
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .story-image-wrapper {
-
-position: sticky;
-
-top: 120px;
-
+  grid-column: 1;                  /* سطر جديد */
+  grid-row: 2;                     /* سطر جديد */
+  position: sticky;
+  top: 120px;
 }
 
 .story-image-container {
-
-position: relative;
-
+  position: relative;
 }
 
 .story-timeline {
-
-display: flex;
-
-flex-direction: column;
-
-gap: var(--spacing-lg);
-
+  grid-column: 2;                  /* سطر جديد */
+  grid-row: 2;                     /* سطر جديد */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
 }
+
 
 /* ============================================
 
@@ -2039,3 +2020,4 @@ animation: tiktokShake 0.5s ease;
 75% { transform: rotate(5deg); }
 
 }
+
