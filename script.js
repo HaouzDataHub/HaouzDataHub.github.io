@@ -389,6 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add timeline animations
     initTimelineAnimations();
+      initCertificationsModal();
 });
 
 
@@ -398,4 +399,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 console.log('%c🚀 Portfolio 2025', 'color: #00d4ff; font-size: 24px; font-weight: bold;');
 console.log('%cDesigned with simplicity and precision', 'color: #b3b3b3; font-size: 12px;');
+
+// Certifications Modal
+function initCertificationsModal() {
+  const envelopeCard = document.getElementById('cert-envelope-card');
+  const modal = document.getElementById('cert-modal');
+  const backdrop = document.getElementById('cert-modal-backdrop');
+  const closeBtn = document.getElementById('cert-modal-close');
+
+  if (!envelopeCard || !modal) return;
+
+  const openModal = () => {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  envelopeCard.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+
+  // Esc key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
+
 
